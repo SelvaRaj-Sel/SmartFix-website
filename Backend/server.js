@@ -7,7 +7,7 @@ import connectDB from "./config/db.js";
 import User from "./models/User.js";
 import authRoutes from "./routes/authRoutes.js";
 import blogRoutes from "./routes/blogRoutes.js";
-import dns from "dns"
+
 
 dotenv.config();
 
@@ -16,11 +16,11 @@ const app = express();
 // Seed default admin if none exists
 const seedDefaultAdmin = async () => {
   try {
-    const adminEmail = process.env.ADMIN_EMAIL || "admin@smartfixautomation.com";
+    const adminEmail = process.env.ADMIN_EMAIL
     const existingAdmin = await User.findOne({ email: adminEmail.toLowerCase() });
 
     if (!existingAdmin) {
-      const adminPassword = process.env.ADMIN_PASSWORD || "admin123";
+      const adminPassword = process.env.ADMIN_PASSWORD;
       const adminName = process.env.ADMIN_NAME || "Admin";
       const hashedPassword = await bcrypt.hash(adminPassword, 12);
 
@@ -41,7 +41,6 @@ const seedDefaultAdmin = async () => {
   }
 };
 
-dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
 // Connect to Database and run seed
 connectDB().then(() => {
