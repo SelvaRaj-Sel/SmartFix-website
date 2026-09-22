@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const connectDB = async () => {
   try {
-    const mongoUri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/smartfix";
+    const mongoUri = process.env.MONGODB_URI || "mongodb+srv://selvarannav6231_db_user:iAqhdfhtkGzAyJyq@cluster0.3e5wr9z.mongodb.net/?appName=Cluster0";
     const connection = await mongoose.connect(mongoUri);
 
     console.log(`MongoDB connected: ${connection.connection.host}`);

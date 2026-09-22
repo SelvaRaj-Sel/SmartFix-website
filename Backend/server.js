@@ -7,6 +7,7 @@ import connectDB from "./config/db.js";
 import User from "./models/User.js";
 import authRoutes from "./routes/authRoutes.js";
 import blogRoutes from "./routes/blogRoutes.js";
+import dns from "dns"
 
 dotenv.config();
 
@@ -39,6 +40,8 @@ const seedDefaultAdmin = async () => {
     console.error("Default admin initialization error:", error.message);
   }
 };
+
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
 // Connect to Database and run seed
 connectDB().then(() => {
