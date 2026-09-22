@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+	--max-width-8xl: 90rem;
+}
+
+@keyframes riseIn {
+	0% {
+		opacity: 0;
+		transform: translateY(22px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes clientSlider {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(-50%);
+	}
+}
+
+.animate-client-slider {
+	animation: clientSlider 18s linear infinite;
+	will-change: transform;
+}
+
+.group:hover .animate-client-slider {
+	animation-play-state: paused;
+}
+
+body {
+	margin: 0;
+	background: #06111d;
+	font-family: Inter, "Segoe UI", sans-serif;
+	font-family: "Barlow", "Segoe UI", sans-serif;
+	font-size: 1rem;
+}
+
+:root {
+	--perspective: 1200px;
+}
+
+html {
+	scroll-behavior: smooth;
+	scroll-padding-top: 72px;
+}
+
+body {
+	margin: 0;
+	background: #06111d;
+	font-family: Inter, "Segoe UI", sans-serif;
+}
+
