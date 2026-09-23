@@ -177,26 +177,27 @@ const Hero = () => {
   return (
     <section
       ref={sectionRef}
-      id="#home"
+      id="home"
       className="
         relative
-  isolate
-  flex
-  min-h-[630px]
-  w-full
-  flex-col
-  overflow-hidden
-  bg-[#06111d]
-  text-white
-  md:min-h-[625px]
-  lg:min-h-[630px]
+        isolate
+        flex
+        min-h-[580px]
+        sm:min-h-[640px]
+        lg:min-h-[680px]
+        w-full
+        flex-col
+        justify-center
+        overflow-hidden
+        bg-[#06111d]
+        text-white
       "
       style={{
         perspective: 1200,
       }}
     >
       {/* ===================================================
-          BACKGROUND IMAGE xl:min-h-[870px]
+          BACKGROUND IMAGE
       ==================================================== */}
 
       <AnimatePresence mode="wait">
@@ -268,25 +269,21 @@ const Hero = () => {
       <div
         className="
           relative
-    z-10
-    mx-auto
-    flex
-    justify-between
-    min-h-[630px]
-    w-full
-    max-w-8xl
-    flex-col
-    
-  md:min-h-[625px]
-  lg:min-h-[630px]
-
-    px-5
-    pt-40
-    md:pt-38
-    lg:pt-28
-    pb-
-
-   
+          z-10
+          mx-auto
+          flex
+          w-full
+          max-w-8xl
+          flex-col
+          px-5
+          sm:px-8
+          lg:px-12
+          pt-28
+          sm:pt-32
+          lg:pt-36
+          pb-10
+          sm:pb-12
+          lg:pb-14
         "
       >
         {/* =================================================
@@ -313,8 +310,7 @@ const Hero = () => {
               mb-3
               flex
               relative
-  isolate
-  flex
+              isolate
               items-center
               gap-3
               text-[10px]
@@ -399,32 +395,18 @@ const Hero = () => {
         </div>
 
         {/* =================================================
-            FLEXIBLE SPACE
-
-            This is important.
-
-            It pushes "Our Clients" to the bottom
-            of the hero container.
-        ================================================== */}
-
-
-        {/* =================================================
             OUR CLIENTS
         ================================================== */}
 
         <motion.div
           className="
             mt-10
-    w-full
-    overflow-hidden
-
-    sm:mt-12
-
-    md:mt-14
-
-    lg:mt-20
-
-    xl:mt-24
+            w-full
+            overflow-hidden
+            sm:mt-12
+            md:mt-14
+            lg:mt-16
+            xl:mt-20
           "
           variants={textVariants}
           initial="hidden"
@@ -526,3 +508,4 @@ const Hero = () => {
 };
 
 export default Hero;
+

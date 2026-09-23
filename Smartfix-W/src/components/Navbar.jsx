@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowUpRight, ChevronDown, ShieldCheck } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import textlogo from "../assets/logo-1.png";
@@ -11,7 +11,7 @@ const Navbar = () => {
   const { isAuthenticated, user } = useAuth();
 
   const navItems = [
-    { name: "Home", href: "/" },
+    { name: "Home", href: "/#home" },
     { name: "About", href: "/about" },
     {
       name: "Solutions",
@@ -29,6 +29,20 @@ const Navbar = () => {
 
   const [scrolled, setScrolled] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
+
+  const handleNavClick = (e, href) => {
+    if (href.startsWith("/#")) {
+      const targetId = href.replace("/#", "");
+      if (window.location.pathname === "/") {
+        e.preventDefault();
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+          window.history.pushState(null, "", href);
+        }
+      }
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -82,6 +96,7 @@ const Navbar = () => {
                 ) : (
                   <a
                     href={item.href}
+                    onClick={(e) => handleNavClick(e, item.href)}
                     className={`group relative flex items-center gap-1 px-4 py-3 text-sm font-medium transition-colors duration-300 ${
                       scrolled
                         ? "text-slate-400 hover:text-(--primary)"
@@ -117,6 +132,7 @@ const Navbar = () => {
                           <a
                             key={dropdownItem.name}
                             href={dropdownItem.href}
+                            onClick={(e) => handleNavClick(e, dropdownItem.href)}
                             className="group flex items-center justify-between rounded-xl px-4 py-3 text-sm text-slate-300 transition-all duration-200 hover:bg-cyan-400/10 hover:text-white"
                           >
                             {dropdownItem.name}

@@ -89,8 +89,8 @@ const IndustryCard = () => {
   };
 
   return (
-    <section className="w-full py-16">
-      <div className="mx-auto max-w-8xl px-5">
+    <section className="max-w-8xl">
+      <div className="mx-auto w-full px-5">
 
         {/* Main Book Card */}
         <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-[0_20px_60px_rgba(2,6,23,0.35)]">

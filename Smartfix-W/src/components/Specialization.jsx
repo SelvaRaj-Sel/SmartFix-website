@@ -144,7 +144,9 @@ const Specialization = () => {
 
   return (
     <section
-      id="specializations" className="relative overflow-hidden bg-[#020d1a] py-12 text-white sm:py-14 " >
+      id="specializations"
+      className="relative overflow-hidden bg-[#020d1a] py-12 text-white sm:py-14 lg:py-16"
+    >
       {/* ===================================================
           TOP LINE
       =================================================== */}
@@ -235,7 +237,7 @@ const Specialization = () => {
             duration: 0.6,
             delay: 0.1,
           }}
-          className="max-w-8xl"
+          className="w-full"
         >
           {/* =================================================
               CARD + RIGHT TITLE NAVIGATION
@@ -328,8 +330,8 @@ const Specialization = () => {
                         absolute
                         inset-0
                         bg-gradient-to-t
-                        from-[#020d1a]
-                        via-[#020d1a]/25
+                        from-[#091422]
+                        via-[#020d1a]/15
                         to-transparent
                       "
                     />

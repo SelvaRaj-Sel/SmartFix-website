@@ -20,7 +20,7 @@
 		transform: translateX(0);
 	}
 	100% {
-		transform: translateX(-50%);
+		transform: translateX(-25%);
 	}
 }
 
@@ -51,9 +51,14 @@ html {
 	scroll-padding-top: 72px;
 }
 
+section[id] {
+	scroll-margin-top: 80px;
+}
+
 body {
 	margin: 0;
 	background: #06111d;
 	font-family: Inter, "Segoe UI", sans-serif;
 }
+
 

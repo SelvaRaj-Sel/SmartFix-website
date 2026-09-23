@@ -253,7 +253,7 @@ const ProductDetails = ({ product }) => {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -18 }}
         transition={{ duration: 0.35 }}
-        className="mt-8 overflow-hidden rounded-2xl border h-[45vh] border-cyan-300/25 bg-[#071827] shadow-[0_18px_45px_rgba(0,160,210,0.12)]"
+        className="mt-8 overflow-hidden rounded-2xl border min-h-[280px] h-auto border-cyan-300/25 bg-[#071827] shadow-[0_18px_45px_rgba(0,160,210,0.12)]"
         aria-live="polite"
       >
         <div className="grid gap-6 p-5 sm:p-7 lg:grid-cols-[0.7fr_1.3fr] lg:p-8">
