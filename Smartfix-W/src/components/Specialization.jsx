@@ -130,7 +130,6 @@ const Specialization = () => {
 
   const activeSpec = specializations[activeIndex];
 
-  const ActiveIcon = activeSpec.icon;
 
   /* =======================================================
      HANDLE TITLE CLICK
@@ -246,6 +245,7 @@ const Specialization = () => {
             className="
               flex
               flex-col
+              
               gap-4
               lg:flex-row
               lg:gap-6
@@ -259,15 +259,18 @@ const Specialization = () => {
             <div
               className="
                 relative
+                w-full
                 overflow-hidden
                 rounded-2xl
-                max-w-5xl
                 flex-1
                 border
                 border-white/10
                 shadow-[0_18px_45px_rgba(2,6,23,0.28)]
               "
-                // bg-white/[0.035]
+                // bg-white/[0.035]relative
+    
+    
+                
             > 
               <AnimatePresence
                 mode="wait"
@@ -300,11 +303,12 @@ const Specialization = () => {
                   <div
                     className="
                       relative
-                      h-[220px]
+                      h-[240px]
                       w-full
                       overflow-hidden
-                      sm:h-[260px]
-                      lg:h-[400px]
+                      sm:h-[350px]
+                      lg:h-[450px]
+                      
                     "
                   >
                     <img
@@ -522,48 +526,7 @@ const Specialization = () => {
               MOBILE TITLE NAVIGATION
           ================================================= */}
 
-          <div
-            className="
-              mt-4
-              flex
-              gap-2
-              overflow-x-auto
-              pb-2
-              lg:hidden
-            "
-          >
-            {specializations.map(
-              (spec, index) => (
-                <button
-                  key={spec.title}
-                  type="button"
-                  onClick={() =>
-                    handleTitleClick(index)
-                  }
-                  className={`
-                    shrink-0
-                    rounded-lg
-                    border
-                    px-3
-                    py-2
-                    text-xs
-                    font-semibold
-                    whitespace-nowrap
-                    transition-colors
-                    duration-200
-
-                    ${
-                      activeIndex === index
-                        ? "border-cyan-300/40 bg-cyan-400/10 text-(--primary)"
-                        : "border-white/10 bg-white/[0.025] text-slate-400 hover:text-white"
-                    }
-                  `}
-                >
-                  {spec.title}
-                </button>
-              )
-            )}
-          </div>
+          
 
           {/* =================================================
               CONTROLS
@@ -579,7 +542,7 @@ const Specialization = () => {
           >
             {/* Previous */}
 
-            <button
+            {/* <button
               type="button"
               onClick={previousSlide}
               aria-label="Previous specialization"
@@ -603,11 +566,11 @@ const Specialization = () => {
               "
             >
               <ChevronLeft size={18} />
-            </button>
+            </button> */}
 
             {/* Next */}
 
-            <button
+            {/* <button
               type="button"
               onClick={nextSlide}
               aria-label="Next specialization"
@@ -631,7 +594,7 @@ const Specialization = () => {
               "
             >
               <ChevronRight size={18} />
-            </button>
+            </button> */}
           </div>
         </motion.div>
       </div>

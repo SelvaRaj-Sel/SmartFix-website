@@ -79,21 +79,21 @@ const Contact = () => {
               <Clock3 size={18} className="text-cyan-300" />
               <div className="flex flex-col justify-center">
                 <span className="text-lg font-bold">Business Hours</span>
-                <span className="text-slate-300">Mon - Sat: 9:00 AM - 7:00 PM</span>
+                <span className="text-slate-300">Mon - Sat: 9:00 AM - 6:00 PM</span>
               </div>
             </motion.div>
           </div>
         </motion.div>
 
        <motion.div
-  className="relative mx-auto mt-4 w-full max-w-8xl overflow-hidden rounded-[1.75rem] border border-sky-400/15 bg-slate-950 shadow-[0_18px_45px_rgba(2,6,23,0.28)]"
+  className="relative w-full max-w-7xl overflow-hidden rounded-[1.75rem] border border-sky-400/15 bg-slate-950 shadow-[0_18px_45px_rgba(2,6,23,0.28)]"
   initial={{ opacity: 0, y: 30 }}
   whileInView={{ opacity: 1, y: 0 }}
   viewport={{ once: true, amount: 0.15 }}
   transition={{ duration: 0.6 }}
 >
   {/* Location Header */}
-  <div className="flex flex-col gap-4 border-b border-white/10 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-10">
+  <div className="flex flex-col gap-4 mt-2 border-b border-white/10 px-1 sm:flex-row sm:items-center sm:justify-between sm:px-4 lg:px-6">
     <div className="flex min-w-0 items-start gap-3">
       <MapPin
         size={20}
@@ -112,7 +112,7 @@ const Contact = () => {
     </div>
 
     <a
-      href="https://maps.app.goo.gl/2syewNr4LszkS5VH6"
+      href="https://maps.app.goo.gl/DbJPnYrqurL6dK6s6"
       target="_blank"
       rel="noopener noreferrer"
       className="shrink-0 self-start text-sm font-semibold text-(--primary) transition hover:text-cyan-200 sm:self-auto"
@@ -125,11 +125,13 @@ const Contact = () => {
   <div className="w-full">
     <iframe
       title="Smartfix Automation location"
-      src="https://www.google.com/maps?q=No.%205%2F12%2C%20Chetty%20Street%2C%20Poonamallee%2C%20Chennai%20600056&output=embed"
+      src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d640.202793592275!2d80.09917240193509!3d13.050638516292883!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a528bf0b94bdf6b%3A0xf5fcfd56d4f385bb!2sSmartfix%20Automation!5e1!3m2!1sen!2sin!4v1790139853136!5m2!1sen!2sin"
       className="block h-[280px] w-full border-0 sm:h-[380px] md:h-[440px] lg:h-[500px]"
       loading="lazy"
       referrerPolicy="no-referrer-when-downgrade"
       allowFullScreen
+      
+       
     />
   </div>
 </motion.div>

@@ -24,6 +24,7 @@
 	}
 }
 
+
 .animate-client-slider {
 	animation: clientSlider 18s linear infinite;
 	will-change: transform;
