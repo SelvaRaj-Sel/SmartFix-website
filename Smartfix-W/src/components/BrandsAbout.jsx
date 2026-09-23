@@ -93,15 +93,19 @@ const BrandCard = ({ product }) => {
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           className="grid grid-cols-[30%_70%]"
         >
-          <div className="relative flex min-h-64 flex-col justify-center border-r border-white/10 bg-white p-3 sm:min-h-72 sm:p-5">
-            <img
-              src={activeProduct.img}
-              alt={activeProduct.title}
-              className="max-h-32 w-full object-contain transition-transform duration-500 group-hover:scale-105 sm:max-h-44"
-            />
-            <p className="mt-4 text-center text-[0.65rem] leading-4 text-slate-600 sm:text-xs sm:leading-5">
-              {product.description}
-            </p>
+          <div className="relative flex min-h-64 flex-col border-r border-white/10 bg-white p-3 sm:min-h-72 sm:p-5">
+            <div className="flex min-h-0 flex-[3] items-center justify-center">
+              <img
+                src={activeProduct.img}
+                alt={activeProduct.title}
+                className="max-h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+            <div className="flex flex-[2] items-center border-t border-slate-200 pt-3">
+              <p className="text-center text-[0.65rem] leading-4 text-slate-600 sm:text-xs sm:leading-5">
+                {product.description}
+              </p>
+            </div>
           </div>
 
           <div className="relative min-w-0 p-5 sm:p-7">
@@ -131,8 +135,12 @@ const BrandCard = ({ product }) => {
 
       <div className="absolute bottom-3 left-1/2 z-20 flex -translate-x-1/2 gap-1.5" aria-label="Product slideshow progress">
         {product.productlist.map((item, index) => (
-          <span
+          <button
+            type="button"
             key={item.id}
+            onClick={() => setActiveSlide(index)}
+            aria-label={`Show ${item.title}`}
+            aria-current={index === activeSlide ? "true" : undefined}
             className={`h-1.5 rounded-full transition-all duration-300 ${
               index === activeSlide ? "w-5 bg-(--primary)" : "w-1.5 bg-slate-400/60"
             }`}
