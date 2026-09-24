@@ -1,11 +1,13 @@
 import rockwellLogo from "../assets/rockwell-logo1.png";
 import siemensLogo from "../assets/Siemens-Logo.png";
 import festologo from "../assets/festo-logo.png";
-import prosoftlogo from "../assets/prosoft-logo.jpg";
+import prosoftlogo from "../assets/Prosoft-Logo.png";
 import AnimatedSection from "./AnimatedSection.jsx";
-import mitsubilogo from "../assets/mitsubi_logo.png";
+import mitsubilogo from "../assets/mitsubi-logo.png";
 import weintek from "../assets/WEINTEK-LOGO.png";
 import micro800 from "../assets/Rockwell/micro 800.jpg"
+import abblogo from "../assets/ABB_logo.png"
+import schneiderlogo from "../assets/schneider-logo.png"
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Check } from "lucide-react";
@@ -63,7 +65,7 @@ const products = [
 },
 ];
 
-const brandslogo =[festologo, prosoftlogo, mitsubilogo, weintek];
+const brandslogo =[festologo, prosoftlogo, mitsubilogo, weintek, abblogo, schneiderlogo];
 
 const BrandCard = ({ product }) => {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -94,7 +96,7 @@ const BrandCard = ({ product }) => {
             <img
               src={product.logo}
               alt="Automation brand"
-              className={`${product.logoClass} object-cover`}
+              className={`${product.logoClass} `}
             />
           </div>
 
@@ -218,18 +220,19 @@ const BrandsAbout = () => {
           </p>
         </AnimatedSection>
 
-        <AnimatedSection variant="scale3D" stagger={0.15} className="grid gap-5 lg:grid-cols-2">
+        <AnimatedSection variant="scale3D" stagger={0.15} className="flex gap-5">
           {products.map((product) => (
             <BrandCard key={product.logo} product={product} />
           ))}
-        </AnimatedSection>
-        <div className="relative z-10 mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
+          <div className="relative z-10 flex flex-col justify-around bg-gray-200 rounded-2xl">
           {brandslogo.map((brand, idx) => (
-            <div key={idx} className="flex h-16 w-full items-center justify-center rounded-2xl bg-amber-50 p-2 transition-transform duration-300 hover:scale-105">
+            <div key={idx} className="flex h-16 w-[150px] gap-5 items-center justify-center rounded-2xl p-5 transition-transform duration-300 hover:scale-105">
               <img src={brand} alt="Brand logo" className="max-h-12 w-auto max-w-full object-contain" />
             </div>
           ))}
         </div>
+        </AnimatedSection>
+        
       </div>
     </section>
   );

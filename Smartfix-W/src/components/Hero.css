@@ -31,10 +31,6 @@
 .hero-layout { display: grid; flex: 1; align-items: center; gap: 2.5rem; }
 .hero-copy { min-width: 0; max-width: 620px; }
 .hero-eyebrow { margin: 0; color: #38c5ed; font-size: .7rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
-.hero h1 { margin: 1rem 0 0; font-size: clamp(1.65rem, 3vw, 3.5rem); line-height: 1.18; font-weight: 600; letter-spacing: -.035em; }
-.hero h1 span { display: block; }
-.hero h1 span + span { color: #38c5ed; margin-top: .2rem; }
-.hero-description { max-width: 550px; margin: 1.25rem 0 0; font-size: clamp(.9rem, 1vw, .5rem); line-height: 1.85; color: #cbd5e1; }
 .hero-link { display: inline-flex; align-items: center; gap: .6rem; margin-top: 1.5rem; padding: .75rem 1rem; border: 1px solid #38c5ed66; border-radius: .6rem; color: #d8f6ff; font-size: .875rem; font-weight: 600; background: #00a0d21a; transition: background .2s; }
 .hero-link:hover { background: #00a0d233; }
 .hero a:focus-visible, .hero button:focus-visible { outline: 2px solid #38c5ed; outline-offset: 5px; }

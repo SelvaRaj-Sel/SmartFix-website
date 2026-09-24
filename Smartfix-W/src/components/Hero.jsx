@@ -19,19 +19,18 @@ const brands = [
 
 const Hero = () => {
   const [activeSlide, setActiveSlide] = useState(0);
-  const [paused, setPaused] = useState(false);
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
-    if (reduceMotion || paused) return;
+    if (reduceMotion) return;
     const timer = window.setInterval(() => {
       setActiveSlide((slide) => (slide + 1) % slides.length);
     }, 6000);
     return () => window.clearInterval(timer);
-  }, [reduceMotion, paused]);
+  }, [reduceMotion]);
 
   return (
-    <section id="home" className="hero" data-paused={paused} aria-labelledby="hero-title">
+    <section id="home" className="hero" aria-labelledby="hero-title">
       <AnimatePresence initial={false}>
         <motion.img
           key={activeSlide}
@@ -50,11 +49,14 @@ const Hero = () => {
         <div className="hero-layout">
           <div className="hero-copy">
             <p className="hero-eyebrow">We Are System Integrator</p>
-            <h1 id="hero-title">
-              <span>Industrial Automation</span>
-              <span>Powered by the Best</span>
+            <h1
+              id="hero-title"
+              className="mt-4 text-[1.65rem] font-semibold leading-[1.18] tracking-[-0.035em] sm:text-[2rem] md:text-[2.4rem] lg:text-[2.8rem] xl:text-[3.15rem] 2xl:text-[3.5rem]"
+            >
+              <span className="block">Industrial Automation</span>
+              <span className="mt-1 block text-[#38c5ed]">Powered by the Best</span>
             </h1>
-            <p className="hero-description">
+            <p className="mt-5 max-w-[550px] text-sm leading-[1.85] text-slate-300 sm:text-base 2xl:text-lg">
               Your trusted product for Rockwell Automation and Siemens solutions.
               We deliver expert system integration, commissioning, migration, and
               24/7 support for industries across India.

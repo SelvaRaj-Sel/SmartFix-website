@@ -66,10 +66,8 @@ const Navbar = () => {
               <img
                 src={textlogo}
                 alt="Smartfix"
-                className={`h-auto w-48 sm:w-56 lg:w-56 xl:w-60 object-contain object-left ${
-                  scrolled ? "brightness-90" : ""
-                }`}
-              />
+                className="h-auto w-48 sm:w-56 lg:w-56 xl:w-60 object-contain object-left"
+              /> <p className="text-slate-400 font-medium pt-2 hidden md:block">automation</p>
             </motion.div>
           </Link>
 

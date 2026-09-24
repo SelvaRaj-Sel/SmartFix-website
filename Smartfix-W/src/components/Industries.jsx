@@ -33,7 +33,7 @@ const industries = [
 ];
 
 
-// const IndustryCard = ({ icon: Icon, title, text, index }) => {
+
 //   const { ref, style, onMouseMove, onMouseLeave } = use3DTilt({ maxRotation: 5, perspective: 1200 });
 
 //   return (
