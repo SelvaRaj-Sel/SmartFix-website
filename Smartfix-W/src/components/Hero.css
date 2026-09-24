@@ -30,7 +30,7 @@
 }
 .hero-layout { display: grid; flex: 1; align-items: center; gap: 2.5rem; }
 .hero-copy { min-width: 0; max-width: 620px; }
-.hero-eyebrow { margin: 0; color: #38c5ed; font-size: .7rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+
 .hero-link { display: inline-flex; align-items: center; gap: .6rem; margin-top: 1.5rem; padding: .75rem 1rem; border: 1px solid #38c5ed66; border-radius: .6rem; color: #d8f6ff; font-size: .875rem; font-weight: 600; background: #00a0d21a; transition: background .2s; }
 .hero-link:hover { background: #00a0d233; }
 .hero a:focus-visible, .hero button:focus-visible { outline: 2px solid #38c5ed; outline-offset: 5px; }
@@ -47,7 +47,7 @@
 .hero-capability p { margin: .3rem 0 0; font-size: .72rem; line-height: 1.5; color: #9cafbf; }
 .hero-card-footer { display: flex; align-items: center; gap: .5rem; margin-top: 1.25rem; font-size: .65rem; line-height: 1.6; color: #a9bfcb; }
 .hero-card-footer > span { width: 6px; height: 6px; border-radius: 50%; background: #38c5ed; flex-shrink: 0; }
-.hero-brands { margin-top: clamp(2rem, 4vw, 3.5rem); padding-top: 1.5rem; border-top: 1px solid #ffffff1a; }
+.hero-brands { margin-top: clamp(2rem, 4vw, 3.5rem); padding-top: 1.5rem;  }
 .hero-brands-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
 .hero-brands-heading button { color: #94a3b8; font-size: .65rem; cursor: pointer; padding-block: .5rem; }
 .hero-brand-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
@@ -64,16 +64,16 @@
   .hero *, .hero *::before, .hero *::after { animation: none !important; transition: none !important; }
 }
 
-/* Two identical groups keep the client strip continuous at every width. */
+/* Three identical groups keep the client strip continuous at every width. */
 .hero-logo-window { overflow: hidden; padding-block: 12px 10px; }
-.hero-logo-track { display: flex; width: max(100%, 760px); animation: hero-logo-scroll 24s linear infinite; }
-.hero-logo-group { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; flex: 0 0 80%; padding-right: 2px; perspective: 900px; }
-.hero-logo-group .hero-brand { height: clamp(50px, 4vw, 88px); transform: rotateY(-8deg) rotateX(5deg); transition: transform .3s; }
-.hero-logo-group .hero-brand:hover { transform: rotateY(0) rotateX(0) translateY(-3px); }
+.hero-logo-track { display: flex; width: max(100%, 750px); animation: hero-logo-scroll 30s linear infinite; will-change: transform; }
+.hero-logo-group { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 1.4vw, 28px); flex: 0 0 80%; padding-right: clamp(16px, 1.4vw, 28px); perspective: 900px; }
+.hero-logo-group .hero-brand { height: clamp(50px, 4vw, 88px); transform: scale(.97) rotateY(-5deg) rotateX(3deg); transition: transform .3s ease, box-shadow .3s ease; }
+.hero-logo-group .hero-brand:hover { transform: scale(1) rotateY(0) rotateX(0) translateY(-3px); }
 .hero-logo-window:hover .hero-logo-track,
 .hero[data-paused="true"] .hero-logo-track { animation-play-state: paused; }
 .hero-animation-toggle { padding: .5rem 0; color: #b6c6d5; font-size: .7rem; cursor: pointer; }
-@keyframes hero-logo-scroll { to { transform: translateX(-100%); } }
+@keyframes hero-logo-scroll { to { transform: translateX(-80%); } }
 @media (prefers-reduced-motion: reduce) {
   .hero-logo-track { width: 100%; animation: none; }
   .hero-logo-group { grid-template-columns: repeat(2, minmax(0, 1fr)); padding-right: 0; }

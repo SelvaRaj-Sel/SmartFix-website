@@ -209,7 +209,7 @@ const Specialization = () => {
           </p>
 
           <h2
-            className="mt-3 max-w-3xl text-[2.4rem] font-semibold leading-[1] tracking-[-0.035em] text-white sm:text-4xl lg:text-[3.5rem]" >
+            className="mt-3 max-w-3xl text-[clamp(1.65rem,3vw,3.5rem)] font-semibold leading-[1.18] tracking-[-0.035em] text-white" >
             We Are{" "}
             <span className="text-(--primary)">
               Specialists In

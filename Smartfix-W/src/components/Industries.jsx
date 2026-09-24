@@ -78,19 +78,9 @@ const IndustryCard = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const nextSlide = () => {
-    setActiveIndex((prev) => (prev + 1) % industries.length);
-  };
-
-  const prevSlide = () => {
-    setActiveIndex(
-      (prev) => (prev - 1 + industries.length) % industries.length
-    );
-  };
-
   return (
     <section className="max-w-8xl">
-      <div className="mx-auto w-full px-5">
+      <div className="mx-auto w-full px-2">
 
         {/* Main Book Card */}
         <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-[0_20px_60px_rgba(2,6,23,0.35)]">
@@ -212,14 +202,14 @@ const IndustryCard = () => {
       bg-slate-950/70
       px-5
       py-6
-      lg:w-[130px]
+      lg:w-[90px]
       lg:border-l
       lg:border-t-0
       lg:px-4
       lg:py-8
     "
   >
-
+{/* number side animation */}
     <div className="flex items-center gap-4 lg:flex-col lg:gap-6">
 
       {industries.map((industry, index) => (
@@ -242,21 +232,17 @@ const IndustryCard = () => {
                 transition={{ duration: 0.2 }}
                 className="
                   absolute
-                  right-[calc(100%+14px)]
+                  right-[calc(100%+10px)]
                   top-1/2
                   hidden
                   -translate-y-1/2
                   whitespace-nowrap
                   rounded-lg
-                  border border-cyan-300/20
-                  bg-slate-950/95
-                  px-3
-                  py-2
+                  
                   text-xs
                   font-semibold
-                  text-cyan-300
-                  shadow-xl
-                  backdrop-blur-md
+                  text-white
+                  
                   lg:block
                 "
               >
@@ -300,29 +286,14 @@ const IndustryCard = () => {
                     text-slate-400
                     hover:border-cyan-300/50
                     hover:bg-cyan-400/10
-                    hover:text-cyan-300
+                    hover:text-(--primary)
                   `
               }
             `}
           >
             {industry.number}
 
-            {/* Active indicator */}
-            {activeIndex === index && (
-              <span
-                className="
-                  absolute
-                  -right-1
-                  -top-1
-                  h-3
-                  w-3
-                  rounded-full
-                  bg-(--primary)
-                  shadow-[0_0_12px_rgba(34,211,238,0.8)]
-                "
-              />
-            )}
-          </button>
+            </button>
 
         </div>
       ))}
@@ -339,7 +310,7 @@ const IndustryCard = () => {
               initial={{ width: "0%" }}
               animate={{ width: "100%" }}
               transition={{ duration: 5, ease: "linear" }}
-              className="h-full bg-cyan-400"
+              className="h-full bg-(--primary)"
             />
           </div>
 
@@ -366,11 +337,11 @@ const Industries = () => (
           <p className="inline-flex items-center rounded-full border border-cyan-400/25 bg-cyan-500/10 px-3 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.22em] text-(--primary)">
             Industries we serve
           </p>
-          <h2 className="mt-3 max-w-3xl text-[2.4rem] font-semibold leading-[1] tracking-[-0.035em] text-white sm:text-4xl lg:text-[3.5rem]">
+          <h2 className="mt-3 max-w-3xl text-[clamp(1.65rem,3vw,3.5rem)] font-semibold leading-[1.18] tracking-[-0.035em] text-white">
             Automation solutions for <span className="text-(--primary)">high-performance</span> operations.
           </h2>
         </div>
-        <p className="max-w-xl text-base leading-7 text-slate-300">
+        <p className="max-w-xl text-[clamp(0.8rem,1vw,1rem)] leading-[1.85] text-slate-300">
           Every industry has different pressures. We design systems around uptime, quality, safety,
           and the people who rely on them every day.
         </p>

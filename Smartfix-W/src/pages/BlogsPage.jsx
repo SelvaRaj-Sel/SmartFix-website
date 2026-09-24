@@ -66,11 +66,11 @@ const BlogsPage = () => {
             Engineering Knowledge & Insights
           </div>
 
-          <h1 className="mt-4 text-3xl font-extrabold tracking-[-0.04em] text-white sm:text-5xl lg:text-6xl">
+          <h1 className="mt-4 text-[clamp(1.65rem,3vw,3.5rem)] font-semibold leading-[1.18] tracking-[-0.035em] text-white">
             Industrial Automation <span className="text-(--primary)">Blogs & Technical Guides</span>
           </h1>
 
-          <p className="mt-5 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg sm:leading-8">
+          <p className="mt-5 max-w-2xl text-[clamp(0.8rem,1vw,1rem)] leading-[1.85] text-slate-300">
             Explore in-depth articles, Rockwell & Siemens engineering case studies, migration strategies, and machine safety best practices written by SmartFix Automation specialists.
           </p>
 

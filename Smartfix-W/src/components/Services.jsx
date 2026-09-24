@@ -263,10 +263,10 @@ const Services = () => (
         <p className="inline-flex items-center rounded-full border border-cyan-400/25 bg-cyan-500/10 px-3 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.22em] text-(--primary)">
           Our services
         </p>
-        <h2 className="mt-3 text-[2.75rem] text-white font-semibold leading-[0.98] tracking-[-0.035em] sm:text-5xl lg:text-[4.25rem]">
+        <h2 className="mt-3 text-[clamp(1.65rem,3vw,3.5rem)] font-semibold leading-[1.18] tracking-[-0.035em] text-white">
           From a single machine to a <span className="text-(--primary)">{""} smarter operation</span>
         </h2>
-        <p className="mt-6 max-w-2xl leading-7 text-slate-300">
+        <p className="mt-5 max-w-2xl text-[clamp(0.8rem,1vw,1rem)] leading-[1.85] text-slate-300">
           Our engineers turn production requirements into robust, maintainable automation systems—without
           overcomplicating the work.
         </p>

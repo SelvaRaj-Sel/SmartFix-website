@@ -64,10 +64,10 @@ const About = () => {
               <p className="inline-flex items-center rounded-full border border-cyan-400/25 bg-cyan-500/10 px-3 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.22em] text-cyan-300">
                 About SmartFix Automation
               </p>
-              <h1 className="mt-6 text-4xl font-black tracking-[-0.06em] text-white sm:text-5xl lg:text-6xl">
+              <h1 className="mt-4 text-[clamp(1.65rem,3vw,3.5rem)] font-semibold leading-[1.18] tracking-[-0.035em] text-white">
                 Industrial automation solutions for smarter, more reliable operations.
               </h1>
-              <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
+              <p className="mt-5 max-w-2xl text-[clamp(0.8rem,1vw,1rem)] leading-[1.85] text-slate-300">
                 SmartFix Automation is an industrial automation and system integration company delivering reliable automation solutions,
                 engineering services, and technical support for modern industrial operations across India.
               </p>

@@ -10,7 +10,7 @@ import abblogo from "../assets/ABB_logo.png"
 import schneiderlogo from "../assets/schneider-logo.png"
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Check } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight } from "lucide-react";
 
 const products = [
   {
@@ -72,6 +72,16 @@ const BrandCard = ({ product }) => {
   const activeProduct = product.productlist[activeSlide];
   const [hovered, setHovered] = useState(false);
 
+  const showPreviousProduct = () => {
+    setActiveSlide((current) =>
+      current === 0 ? product.productlist.length - 1 : current - 1,
+    );
+  };
+
+  const showNextProduct = () => {
+    setActiveSlide((current) => (current + 1) % product.productlist.length);
+  };
+
   useEffect(() => {
     if (hovered || product.productlist.length < 2) return undefined;
 
@@ -84,13 +94,13 @@ const BrandCard = ({ product }) => {
 
   return (
     <article
-      className="group relative overflow-hidden rounded-3xl border border-white/15 bg-(--dark2) text-white transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-white/30 hover:shadow-[0_18px_50px_rgba(2,6,23,0.35)]"
+      className="group relative flex h-full min-w-0 w-full flex-col overflow-hidden rounded-3xl border border-white/15 bg-(--dark2) text-white transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-white/30 hover:shadow-[0_18px_50px_rgba(2,6,23,0.35)]"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       <div className="absolute inset-x-0 top-0 z-20 h-1" style={{ backgroundColor: product.accent }} />
 
-      <div className="relative z-10 border-b border-white/10 p-5 sm:p-6">
+      <div className="relative z-10 border-b border-white/10 p-4 sm:p-5">
         <div className="grid items-start gap-3 sm:grid-cols-[minmax(130px,0.65fr)_minmax(0,1.35fr)]">
           <div className="flex h-14 items-center justify-center sm:h-16">
             <img
@@ -118,7 +128,7 @@ const BrandCard = ({ product }) => {
             {product.category.map((category, index) => (
               <span
                 key={`${category}-${index}`}
-                className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-slate-300"
+                className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-slate-300 transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:bg-white/10 hover:text-white"
               >
                 {category}
               </span>
@@ -127,7 +137,7 @@ const BrandCard = ({ product }) => {
         </div>
       </div>
 
-      <div className="p-2 pb-8">
+      <div className="flex flex-1 flex-col p-2 pb-4">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeProduct.id}
@@ -135,14 +145,14 @@ const BrandCard = ({ product }) => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -56 }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="grid overflow-hidden rounded-2xl bg-white/[0.025] sm:grid-cols-[32%_68%]"
+            className="grid flex-1 overflow-hidden rounded-2xl bg-white/[0.025] sm:grid-cols-[minmax(120px,32%)_minmax(0,68%)]"
           >
-            <div className="relative flex min-h-56 flex-col border-b border-white/10 bg-white p-4 sm:min-h-72 sm:border-r sm:border-b-0 sm:p-5">
+            <div className="relative flex min-h-44 flex-col border-b border-white/10 bg-white p-3 sm:min-h-52 sm:border-r sm:border-b-0 sm:p-4">
               <div className="flex min-h-0 flex-[3] items-center justify-center">
                 <img
                   src={activeProduct.img}
                   alt={activeProduct.title}
-                  className="max-h-full w-full object-contain transition-transform duration-500 group-hover:scale-110"
+                  className="max-h-[120px] w-full object-contain transition-transform duration-500 group-hover:scale-110"
                 />
               </div>
               <div className="flex flex-[2] items-center border-t border-slate-200 pt-3">
@@ -161,7 +171,7 @@ const BrandCard = ({ product }) => {
                 <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-(--primary)">
                   Applications
                 </p>
-                <ul className="mt-3 flex flex-col w-50 hover:text-white">
+                <ul className="mt-3 grid w-full grid-cols-1 gap-x-3 gap-y-1.5 xl:grid-cols-2 hover:text-white">
                   {activeProduct.application.map((application, index) => (
                     <li
                       key={`${application}-${index}`}
@@ -178,19 +188,39 @@ const BrandCard = ({ product }) => {
         </AnimatePresence>
       </div>
 
-      <div className="absolute bottom-3 left-1/2 z-20 flex -translate-x-1/2 gap-1.5" aria-label="Product slideshow progress">
-        {product.productlist.map((item, index) => (
-          <button
-            type="button"
-            key={item.id}
-            onClick={() => setActiveSlide(index)}
-            aria-label={`Show ${item.title}`}
-            aria-current={index === activeSlide ? "true" : undefined}
-            className={`h-1.5 rounded-full transition-all duration-300 ${
-              index === activeSlide ? "w-5 bg-(--primary)" : "w-1.5 bg-slate-400/60"
-            }`}
-          />
-        ))}
+      <div className="absolute bottom-1 left-1/2 z-20 flex -translate-x-1/3  items-center justify-center gap-3">
+        <button
+          type="button"
+          onClick={showPreviousProduct}
+          aria-label="Show previous product"
+          className="grid h-6 w-6 shrink-0 place-items-center rounded-full border border-white/15 text-white shadow-lg backdrop-blur transition hover:border-white/35 hover:bg-(--primary) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary)"
+        >
+          <ChevronLeft size={15} aria-hidden="true" />
+        </button>
+
+        <div className="flex min-w-0 items-center justify-center gap-1.5" aria-label="Product slideshow progress">
+          {product.productlist.map((item, index) => (
+            <button
+              type="button"
+              key={item.id}
+              onClick={() => setActiveSlide(index)}
+              aria-label={`Show ${item.title}`}
+              aria-current={index === activeSlide ? "true" : undefined}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                index === activeSlide ? "w-5 bg-(--primary)" : "w-1.5 bg-slate-400/60"
+              }`}
+            />
+          ))}
+        </div>
+
+        <button
+          type="button"
+          onClick={showNextProduct}
+          aria-label="Show next product"
+          className="grid h-6 w-6 shrink-0 place-items-center rounded-full border border-white/15 text-white shadow-lg backdrop-blur transition hover:border-white/35 hover:bg-(--primary) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary)"
+        >
+          <ChevronRight size={17} aria-hidden="true" />
+        </button>
       </div>
     </article>
   );
@@ -198,7 +228,7 @@ const BrandCard = ({ product }) => {
 
 const BrandsAbout = () => {
   return (
-    <section id="brands" className="relative isolate overflow-hidden bg-[#020d1a] py-12 text-white sm:py-14">
+    <section id="brands" className="relative isolate min-h-[calc(100svh-var(--navbar-height))] overflow-hidden bg-[#020d1a] py-8 text-white sm:py-10">
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(0,168,232,0.2),transparent)]"
         aria-hidden="true"
@@ -206,32 +236,78 @@ const BrandsAbout = () => {
       <div className="relative mx-auto max-w-8xl px-5 sm:px-8 lg:px-12">
         <AnimatedSection variant="fadeUp" className="mb-3 max-w-5xl sm:mb-6">
           <div className="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.24em] text-(--primary)">
-            <p className="inline-flex items-center rounded-full border border-cyan-400/25 bg-cyan-500/10 px-3 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.22em] text-(--primary)">
+            <p className="inline-flex items-center rounded-full border border-cyan-400/25 bg-cyan-500/10 px-3 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.18em] text-(--primary)">
+            
             Our Brands
           </p>
             
           </div>
-          <h2 className="mt-3 text-[2.75rem] text-white font-semibold leading-[0.98] tracking-[-0.035em] sm:text-5xl lg:text-[4.25rem]">
+          <h2 className="mt-3 text-[clamp(1.65rem,3vw,3.5rem)] font-semibold leading-[1.18] tracking-[-0.035em] text-white">
             The technology behind
             <span className="block text-(--primary)">better operations.</span>
           </h2>
-          <p className="mt-6 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg sm:leading-8">
+          <p className="mt-5 max-w-[550px] text-[clamp(0.8rem,1vw,1rem)] leading-[1.85] text-slate-300">
             We specialize in two of the world's most trusted automation brands, delivering certified expertise and genuine product solutions.
           </p>
         </AnimatedSection>
 
-        <AnimatedSection variant="scale3D" stagger={0.15} className="flex gap-5">
-          {products.map((product) => (
-            <BrandCard key={product.logo} product={product} />
-          ))}
-          <div className="relative z-10 flex flex-col justify-around bg-gray-200 rounded-2xl">
-          {brandslogo.map((brand, idx) => (
-            <div key={idx} className="flex h-16 w-[150px] gap-5 items-center justify-center rounded-2xl p-5 transition-transform duration-300 hover:scale-105">
-              <img src={brand} alt="Brand logo" className="max-h-12 w-auto max-w-full object-contain" />
-            </div>
-          ))}
-        </div>
-        </AnimatedSection>
+        <AnimatedSection
+  variant="scale3D"
+  stagger={0.15}
+  className="grid w-full grid-cols-1 items-stretch gap-4 sm:gap-5 lg:grid-cols-[repeat(2,minmax(0,1fr))_150px]"
+>
+  {products.map((product) => (
+    <BrandCard key={product.logo} product={product} />
+  ))}
+
+  <div
+    className="relative z-10 flex w-full flex-row flex-wrap items-center justify-around gap-2 rounded-2xl bg-gray-200 p-2 sm:gap-3 sm:p-3
+      lg:w-[150px]
+      lg:flex-col
+      lg:flex-nowrap
+      lg:justify-around
+      lg:p-0
+    "
+  >
+    {brandslogo.map((brand, idx) => (
+      <div
+        key={idx}
+        className="
+          flex
+          h-14
+          w-[120px]
+          items-center
+          justify-center
+          rounded-2xl
+          p-3
+          transition-transform
+          duration-300
+          hover:scale-105
+
+          sm:h-16
+          sm:w-[140px]
+          sm:p-4
+
+          lg:w-[150px]
+          lg:p-5
+        "
+      >
+        <img
+          src={brand}
+          alt="Brand logo"
+          className="
+            max-h-10
+            w-auto
+            max-w-full
+            object-contain
+
+            sm:max-h-12
+          "
+        />
+      </div>
+    ))}
+  </div>
+</AnimatedSection>
         
       </div>
     </section>

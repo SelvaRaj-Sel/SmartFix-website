@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ArrowUpRight, ChevronDown, ShieldCheck } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import textlogo from "../assets/logo-1.png";
+import textlogo from "../assets/logo.png";
 import MobileNav from "./MobileNav.jsx";
 import { FaUser } from "react-icons/fa";
 import { Link } from "react-router";
@@ -56,8 +56,8 @@ const Navbar = () => {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-[#010c14]/95 backdrop-blur-md transition-all duration-500">
-      <nav className="mx-auto max-w-8xl px-5 sm:px-8 lg:px-12">
-        <div className="flex h-18 items-center justify-between">
+      <nav className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-10">
+        <div className="flex h-16 items-center justify-between">
           <Link to="/" className="group flex items-center gap-3">
             <motion.div
               whileHover={{ rotateY: 12 }}
@@ -66,7 +66,7 @@ const Navbar = () => {
               <img
                 src={textlogo}
                 alt="Smartfix"
-                className="h-auto w-48 sm:w-56 lg:w-56 xl:w-60 object-contain object-left"
+                className="h-auto w-48 sm:w-56 lg:w-56 xl:w-60 object-cover object-left"
               /> <p className="text-slate-400 font-medium pt-2 hidden md:block">automation</p>
             </motion.div>
           </Link>

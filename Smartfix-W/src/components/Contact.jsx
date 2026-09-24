@@ -29,10 +29,10 @@ const Contact = () => {
           <p className="inline-flex items-center rounded-full border border-cyan-400/25 bg-cyan-500/10 px-3 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.22em] text-(--primary)">
             Start an enquiry
           </p>
-          <h2 className="mt-3 max-w-3xl text-[2.4rem] font-semibold leading-[1] tracking-[-0.035em] text-white sm:text-4xl lg:text-[3.5rem]">
+          <h2 className="mt-3 max-w-3xl text-[clamp(1.65rem,3vw,3.5rem)] font-semibold leading-[1.18] tracking-[-0.035em] text-white">
             Let’s build a smarter, <span className="text-(--primary)">more reliable operation.</span>
           </h2>
-          <p className="mt-6 max-w-md text-base leading-7 text-slate-300">
+          <p className="mt-5 max-w-md text-[clamp(0.8rem,1vw,1rem)] leading-[1.85] text-slate-300">
             Smartfix Automation helps manufacturers, processing plants, and packaging operations improve
             productivity with industrial automation, PLC programming, HMI design, VFD integration, and machine
             safety solutions.

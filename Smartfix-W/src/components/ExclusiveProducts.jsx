@@ -266,7 +266,7 @@ const ProductDetails = ({ product }) => {
           </div>
 
           <div>
-            <h3 className="mt-1 text-2xl font-semibold text-white">
+            <h3 className="mt-1 text-2xl font-semibold text-(--primary)">
               {product.title}
             </h3>
             <p className="mt-4 text-sm leading-7 text-slate-300">
@@ -300,6 +300,7 @@ const ProductDetails = ({ product }) => {
 
 const ExclusiveProducts = () => {
   const [selectedProductId, setSelectedProductId] = useState(null);
+  const [sliderProducts, setSliderProducts] = useState(products);
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [visibleCards, setVisibleCards] = useState(1);
   const carouselRef = useRef(null);
@@ -319,7 +320,7 @@ const ExclusiveProducts = () => {
     return () => window.removeEventListener("resize", updateVisibleCards);
   }, []);
 
-  const maxCarouselIndex = Math.max(products.length - visibleCards, 0);
+  const maxCarouselIndex = Math.max(sliderProducts.length - visibleCards, 0);
 
   const scrollToProduct = (index) => {
     const nextIndex = Math.min(Math.max(index, 0), maxCarouselIndex);
@@ -331,9 +332,23 @@ const ExclusiveProducts = () => {
     });
   };
 
-  const selectProduct = (product, index) => {
+  const selectProduct = (product) => {
     setSelectedProductId(product.id);
-    scrollToProduct(index);
+    setSliderProducts((currentProducts) => {
+      const selectedIndex = currentProducts.findIndex(
+        (item) => item.id === product.id,
+      );
+
+      if (selectedIndex < 0 || selectedIndex === currentProducts.length - 1) {
+        return currentProducts;
+      }
+
+      return [
+        ...currentProducts.slice(0, selectedIndex),
+        ...currentProducts.slice(selectedIndex + 1),
+        currentProducts[selectedIndex],
+      ];
+    });
   };
 
   return (
@@ -359,14 +374,14 @@ const ExclusiveProducts = () => {
             </p>
             <h2
               id="product-catalog-heading"
-              className="mt-3 text-[2.75rem] text-white font-semibold leading-[0.98] tracking-[-0.035em] sm:text-5xl lg:text-[4.25rem]"
+              className="mt-3 text-[clamp(1.65rem,3vw,3.5rem)] font-semibold leading-[1.18] tracking-[-0.035em] text-white"
             >
               Automation Product
               <span className="text-(--primary)"> Categories</span>
             </h2>
           </div>
 
-          <p className="max-w-xl text-base leading-7 text-slate-300 lg:text-lg">
+          <p className="mt-5 max-w-xl text-[clamp(0.8rem,1vw,1rem)] leading-[1.85] text-slate-300">
             Complete range of industrial automation hardware and software from
             <span className="text-(--rockwell-red) hover:text-red-500">
               {" "}
@@ -395,7 +410,7 @@ const ExclusiveProducts = () => {
             ref={carouselRef}
             className="flex gap-4 overflow-hidden py-2 scroll-smooth sm:gap-5"
           >
-            {products.map((product, index) => (
+            {sliderProducts.map((product) => (
               <div
                 key={product.id}
                 className="w-full shrink-0 snap-start md:w-[calc((100%_-_1rem)/2)] lg:w-[calc((100%_-_2.5rem)/3)]"
@@ -403,7 +418,7 @@ const ExclusiveProducts = () => {
                 <ProductCard
                   {...product}
                   isSelected={product.id === selectedProductId}
-                  onSelect={() => selectProduct(product, index)}
+                  onSelect={() => selectProduct(product)}
                 />
               </div>
             ))}
