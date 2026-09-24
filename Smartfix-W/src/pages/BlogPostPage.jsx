@@ -70,7 +70,7 @@ const BlogPostPage = () => {
 
       if (trimmed.startsWith("## ")) {
         return (
-          <h2 key={idx} className="mt-10 mb-5 text-2xl sm:text-3xl font-extrabold text-cyan-300 tracking-tight">
+          <h2 key={idx} className="mt-10 mb-5 text-2xl sm:text-3xl font-extrabold text-(--primary) tracking-tight">
             {trimmed.replace("## ", "")}
           </h2>
         );
@@ -91,7 +91,7 @@ const BlogPostPage = () => {
       if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
         const items = trimmed.split("\n").filter(Boolean);
         return (
-          <ul key={idx} className="my-4 space-y-2.5 pl-4 sm:pl-6 list-disc marker:text-cyan-400">
+          <ul key={idx} className="my-4 space-y-2.5 pl-4 sm:pl-6 list-disc marker:text-(--primary)">
             {items.map((item, itemIdx) => {
               const text = item.replace(/^[-*]\s+/, "");
               // Parse basic bold **text**
@@ -118,7 +118,7 @@ const BlogPostPage = () => {
       if (/^\d+\.\s/.test(trimmed)) {
         const items = trimmed.split("\n").filter(Boolean);
         return (
-          <ol key={idx} className="my-4 space-y-2.5 pl-4 sm:pl-6 list-decimal marker:text-cyan-400 font-medium">
+          <ol key={idx} className="my-4 space-y-2.5 pl-4 sm:pl-6 list-decimal marker:text-(--primary) font-medium">
             {items.map((item, itemIdx) => {
               const text = item.replace(/^\d+\.\s+/, "");
               const parts = text.split(/(\*\*.*?\*\*)/g);
@@ -160,7 +160,7 @@ const BlogPostPage = () => {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#020d1a] text-cyan-400">
+      <div className="flex min-h-screen items-center justify-center bg-[#020d1a] text-(--primary)">
         <div className="flex items-center gap-3">
           <div className="h-6 w-6 animate-spin rounded-full border-2 border-cyan-400 border-t-transparent" />
           <span className="text-sm font-medium">Loading post...</span>
@@ -199,7 +199,7 @@ const BlogPostPage = () => {
         <div className="flex items-center justify-between pt-6 pb-8">
           <Link
             to="/blogs"
-            className="group inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-400 transition hover:text-cyan-300"
+            className="group inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-400 transition hover:text-(--primary)"
           >
             <ArrowLeft size={16} className="transition group-hover:-translate-x-1" />
             Back to Blogs
@@ -216,7 +216,7 @@ const BlogPostPage = () => {
               </>
             ) : (
               <>
-                <Share2 size={14} className="text-cyan-400" />
+                <Share2 size={14} className="text-(--primary)" />
                 <span>Share Post</span>
               </>
             )}
@@ -231,7 +231,7 @@ const BlogPostPage = () => {
         >
           {blog.category && (
             <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-(--primary)">
-              <Sparkles size={12} className="text-cyan-300" />
+              <Sparkles size={12} className="text-(--primary)" />
               {blog.category}
             </span>
           )}
@@ -242,14 +242,14 @@ const BlogPostPage = () => {
 
           <div className="mt-6 flex flex-wrap items-center gap-4 sm:gap-6 border-y border-white/10 py-4 text-xs sm:text-sm text-slate-400">
             <div className="flex items-center gap-2 text-slate-200">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-cyan-500/20 text-cyan-300 font-bold">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-cyan-500/20 text-(--primary) font-bold">
                 <User size={15} />
               </div>
               <span className="font-semibold">{blog.author?.name || "SmartFix Engineering Team"}</span>
             </div>
 
             <div className="flex items-center gap-1.5">
-              <Calendar size={15} className="text-cyan-400" />
+              <Calendar size={15} className="text-(--primary)" />
               <span>
                 {new Date(blog.createdAt).toLocaleDateString("en-US", {
                   month: "long",
@@ -260,7 +260,7 @@ const BlogPostPage = () => {
             </div>
 
             <div className="flex items-center gap-1.5">
-              <Clock size={15} className="text-cyan-400" />
+              <Clock size={15} className="text-(--primary)" />
               <span>{blog.readTime || "5 min read"}</span>
             </div>
           </div>
@@ -328,13 +328,13 @@ const BlogPostPage = () => {
                   to={`/blogs/${item.slug}`}
                   className="group block overflow-hidden rounded-2xl border border-white/10 bg-(--dark2) p-5 transition duration-300 hover:border-cyan-400/40 hover:-translate-y-1"
                 >
-                  <span className="text-[0.65rem] font-bold uppercase tracking-wider text-cyan-400">
+                  <span className="text-[0.65rem] font-bold uppercase tracking-wider text-(--primary)">
                     {item.category || "Automation"}
                   </span>
-                  <h4 className="mt-2 line-clamp-2 text-base font-bold text-white group-hover:text-cyan-200">
+                  <h4 className="mt-2 line-clamp-2 text-base font-bold text-white group-hover:text-(--primary)">
                     {item.title}
                   </h4>
-                  <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-cyan-400">
+                  <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-(--primary)">
                     Read guide <ChevronRight size={14} />
                   </span>
                 </Link>

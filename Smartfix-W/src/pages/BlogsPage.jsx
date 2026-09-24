@@ -74,19 +74,7 @@ const BlogsPage = () => {
             Explore in-depth articles, Rockwell & Siemens engineering case studies, migration strategies, and machine safety best practices written by SmartFix Automation specialists.
           </p>
 
-          {/* Search & Filter Bar */}
-          {/* <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
-            <div className="relative flex-1">
-              <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search articles on PLC, SCADA, VFDs, Safety..."
-                className="w-full rounded-2xl border border-white/10 bg-slate-900/80 py-3.5 pl-11 pr-4 text-sm text-white placeholder-slate-400 outline-none backdrop-blur-md transition focus:border-cyan-400 focus:bg-slate-900 focus:ring-2 focus:ring-cyan-500/20"
-              />
-            </div>
-          </div> */}
+          
 
           {/* Category Filter Pills */}
           <div className="mt-5 flex flex-wrap gap-2">

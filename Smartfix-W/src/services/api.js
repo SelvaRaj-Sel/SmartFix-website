@@ -1,6 +1,35 @@
 const API_BASE =
   import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
+const fetchWithTimeout = async (url, options = {}, timeout = 20000) => {
+  const controller = new AbortController();
+  const timeoutId = window.setTimeout(() => controller.abort(), timeout);
+
+  try {
+    return await fetch(url, { ...options, signal: controller.signal });
+  } catch (error) {
+    if (error.name === "AbortError") {
+      throw new Error("The server took too long to respond. Please try again.");
+    }
+    throw error;
+  } finally {
+    window.clearTimeout(timeoutId);
+  }
+};
+
+const readResponse = async (response) => {
+  const responseText = await response.text();
+  try {
+    return responseText ? JSON.parse(responseText) : {};
+  } catch {
+    return {
+      message: response.ok
+        ? "The server returned an invalid response"
+        : `Request failed with status ${response.status}`,
+    };
+  }
+};
+
 
 
 const getAuthHeaders = () => {
@@ -122,12 +151,12 @@ export const api = {
   },
 
   async createBlog(blogData) {
-    const res = await fetch(`${API_BASE}/blogs`, {
+    const res = await fetchWithTimeout(`${API_BASE}/blogs`, {
       method: "POST",
       headers: getAuthHeaders(),
       body: JSON.stringify(blogData)
     });
-    const data = await res.json();
+    const data = await readResponse(res);
     if (!res.ok) {
       throw new Error(data.message || "Failed to create blog");
     }
@@ -135,12 +164,12 @@ export const api = {
   },
 
   async updateBlog(id, blogData) {
-    const res = await fetch(`${API_BASE}/blogs/${id}`, {
+    const res = await fetchWithTimeout(`${API_BASE}/blogs/${id}`, {
       method: "PUT",
       headers: getAuthHeaders(),
       body: JSON.stringify(blogData)
     });
-    const data = await res.json();
+    const data = await readResponse(res);
     if (!res.ok) {
       throw new Error(data.message || "Failed to update blog");
     }

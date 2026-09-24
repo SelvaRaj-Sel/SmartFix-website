@@ -186,7 +186,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          <MobileNav navItems={navItems} scrolled={scrolled} isAuthenticated={isAuthenticated} user={user} />
+          <MobileNav navItems={navItems} isAuthenticated={isAuthenticated} user={user} />
         </div>
       </nav>
     </header>

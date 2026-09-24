@@ -1,7 +1,4 @@
-import { Factory, PackageCheck, Settings2, Wheat } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { use3DTilt } from "../hooks/use3DTilt.js";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import manuf from "../assets/hero.jpg"
 
@@ -79,11 +76,11 @@ const IndustryCard = () => {
   }, []);
 
   return (
-    <section className="max-w-8xl">
-      <div className="mx-auto w-full px-2">
+    <section className="w-full max-w-none">
+      <div className="w-full">
 
         {/* Main Book Card */}
-        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-[0_20px_60px_rgba(2,6,23,0.35)]">
+        <div className="relative w-full overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-[0_20px_60px_rgba(2,6,23,0.35)]">
 
           <div className="flex min-h-[450px] w-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-slate-950/40 lg:flex-row">
 

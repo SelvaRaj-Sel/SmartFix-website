@@ -188,7 +188,7 @@ const BrandCard = ({ product }) => {
         </AnimatePresence>
       </div>
 
-      <div className="absolute bottom-1 left-1/2 z-20 flex -translate-x-1/3  items-center justify-center gap-3">
+      <div className="absolute bottom-1 left-1/2 z-20 flex -translate-x-1/2 md:-translate-x-1/3 items-center justify-center gap-1.5 sm:gap-2 md:gap-2.5">
         <button
           type="button"
           onClick={showPreviousProduct}

@@ -18,18 +18,45 @@ import {
   X,
   Loader2,
   ArrowLeft,
-  Image as ImageIcon
+  Image as ImageIcon,
 } from "lucide-react";
 import Logo from "../assets/logo-1.png";
 import { useAuth } from "../context/AuthContext.jsx";
 import { api } from "../services/api.js";
 
-const PRESET_IMAGES = [
-  "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=1200&q=80",
-];
+const prepareCoverImage = (file) =>
+  new Promise((resolve, reject) => {
+    const image = new window.Image();
+    const objectUrl = URL.createObjectURL(file);
+
+    image.onload = () => {
+      const maxWidth = 1600;
+      const maxHeight = 900;
+      const scale = Math.min(maxWidth / image.width, maxHeight / image.height, 1);
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.max(1, Math.round(image.width * scale));
+      canvas.height = Math.max(1, Math.round(image.height * scale));
+
+      const context = canvas.getContext("2d");
+      if (!context) {
+        URL.revokeObjectURL(objectUrl);
+        reject(new Error("Image processing is unavailable"));
+        return;
+      }
+
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      const optimizedImage = canvas.toDataURL("image/webp", 0.82);
+      URL.revokeObjectURL(objectUrl);
+      resolve(optimizedImage);
+    };
+
+    image.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      reject(new Error("Unable to read the selected image"));
+    };
+
+    image.src = objectUrl;
+  });
 
 const AdminBlogDashboard = () => {
   const { user, isAuthenticated, loading: authLoading, logout } = useAuth();
@@ -94,7 +121,7 @@ const AdminBlogDashboard = () => {
       title: "",
       slug: "",
       content: "",
-      image: PRESET_IMAGES[0],
+      image: "",
       category: "Rockwell Automation",
       published: true,
     });
@@ -135,7 +162,11 @@ const AdminBlogDashboard = () => {
 
   const handleSubmitBlog = async (e) => {
     e.preventDefault();
-    if (!formData.title.trim() || !formData.slug.trim() || !formData.content.trim()) {
+    if (
+      !formData.title.trim() ||
+      !formData.slug.trim() ||
+      !formData.content.trim()
+    ) {
       showToast("Title, slug, and content are required", "error");
       return;
     }
@@ -219,7 +250,11 @@ const AdminBlogDashboard = () => {
                 : "border border-emerald-500/30 bg-emerald-950/90 text-emerald-200"
             }`}
           >
-            {toast.type === "error" ? <AlertCircle size={18} /> : <CheckCircle2 size={18} />}
+            {toast.type === "error" ? (
+              <AlertCircle size={18} />
+            ) : (
+              <CheckCircle2 size={18} />
+            )}
             <span>{toast.message}</span>
           </motion.div>
         )}
@@ -228,11 +263,16 @@ const AdminBlogDashboard = () => {
       {/* Top Navbar */}
       <header className="sticky top-0 z-40 border-b border-white/10 bg-[#061423]/95 backdrop-blur-xl">
         <div className="mx-auto flex h-18 max-w-8xl items-center justify-between px-5 sm:px-8">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <Link to="/">
-              <img src={Logo} alt="SmartFix" className="h-9 w-auto object-contain" />
+              <img
+                src={Logo}
+                alt="SmartFix"
+                className="h-20 w-36 object-contain sm:h-24 sm:w-44"
+              />
             </Link>
-            <span className="hidden sm:inline-block rounded-md border border-cyan-400/30 bg-cyan-500/10 px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider text-(--primary)">
+
+            <span className="hidden rounded-md border border-cyan-400/30 bg-cyan-500/10 px-2 py-0.5 text-[0.6rem] font-bold uppercase tracking-wide text-(--primary) sm:inline-block">
               Admin Portal
             </span>
           </div>
@@ -248,8 +288,12 @@ const AdminBlogDashboard = () => {
 
             <div className="flex items-center gap-2.5 border-l border-white/10 pl-3 sm:pl-4">
               <div className="hidden md:block text-right">
-                <p className="text-xs font-bold text-white">{user?.name || "Admin"}</p>
-                <p className="text-[0.65rem] text-slate-400">{user?.email || "admin@smartfix.com"}</p>
+                <p className="text-xs font-bold text-white">
+                  {user?.name || "Admin"}
+                </p>
+                <p className="text-[0.65rem] text-slate-400">
+                  {user?.email || "admin@smartfix.com"}
+                </p>
               </div>
 
               <button
@@ -269,9 +313,12 @@ const AdminBlogDashboard = () => {
         {/* Page Title & Stats */}
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl font-black text-white sm:text-3xl">Blog & Article Management</h1>
+            <h1 className="text-2xl font-black text-white sm:text-3xl">
+              Blog & Article Management
+            </h1>
             <p className="mt-1 text-xs sm:text-sm text-slate-400">
-              Create, edit, publish, and manage engineering blogs for SmartFix Automation
+              Create, edit, publish, and manage engineering blogs for SmartFix
+              Automation
             </p>
           </div>
 
@@ -287,24 +334,33 @@ const AdminBlogDashboard = () => {
         <div className="mt-6 grid grid-cols-3 gap-3 sm:gap-6">
           <div className="rounded-2xl border border-white/10 bg-(--dark2) p-4 sm:p-5">
             <p className="text-xs font-medium text-slate-400">Total Posts</p>
-            <p className="mt-2 text-2xl font-extrabold text-white sm:text-3xl">{totalCount}</p>
+            <p className="mt-2 text-2xl font-extrabold text-white sm:text-3xl">
+              {totalCount}
+            </p>
           </div>
 
           <div className="rounded-2xl border border-emerald-500/20 bg-emerald-950/20 p-4 sm:p-5">
             <p className="text-xs font-medium text-emerald-400">Published</p>
-            <p className="mt-2 text-2xl font-extrabold text-emerald-300 sm:text-3xl">{publishedCount}</p>
+            <p className="mt-2 text-2xl font-extrabold text-emerald-300 sm:text-3xl">
+              {publishedCount}
+            </p>
           </div>
 
           <div className="rounded-2xl border border-amber-500/20 bg-amber-950/20 p-4 sm:p-5">
             <p className="text-xs font-medium text-amber-400">Drafts</p>
-            <p className="mt-2 text-2xl font-extrabold text-amber-300 sm:text-3xl">{draftCount}</p>
+            <p className="mt-2 text-2xl font-extrabold text-amber-300 sm:text-3xl">
+              {draftCount}
+            </p>
           </div>
         </div>
 
         {/* Search & Filter Bar */}
         <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="relative flex-1 max-w-md">
-            <Search size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search
+              size={17}
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+            />
             <input
               type="text"
               value={searchQuery}
@@ -318,7 +374,9 @@ const AdminBlogDashboard = () => {
             <button
               onClick={() => setStatusFilter("all")}
               className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
-                statusFilter === "all" ? "bg-cyan-400 text-slate-950" : "text-slate-400 hover:text-white"
+                statusFilter === "all"
+                  ? "bg-cyan-400 text-slate-950"
+                  : "text-slate-400 hover:text-white"
               }`}
             >
               All ({totalCount})
@@ -326,7 +384,9 @@ const AdminBlogDashboard = () => {
             <button
               onClick={() => setStatusFilter("published")}
               className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
-                statusFilter === "published" ? "bg-cyan-400 text-slate-950" : "text-slate-400 hover:text-white"
+                statusFilter === "published"
+                  ? "bg-cyan-400 text-slate-950"
+                  : "text-slate-400 hover:text-white"
               }`}
             >
               Published ({publishedCount})
@@ -334,7 +394,9 @@ const AdminBlogDashboard = () => {
             <button
               onClick={() => setStatusFilter("draft")}
               className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
-                statusFilter === "draft" ? "bg-cyan-400 text-slate-950" : "text-slate-400 hover:text-white"
+                statusFilter === "draft"
+                  ? "bg-cyan-400 text-slate-950"
+                  : "text-slate-400 hover:text-white"
               }`}
             >
               Drafts ({draftCount})
@@ -351,9 +413,13 @@ const AdminBlogDashboard = () => {
           ) : filteredBlogs.length === 0 ? (
             <div className="rounded-2xl border border-white/10 bg-slate-900/50 p-12 text-center">
               <FileText size={40} className="mx-auto text-slate-600" />
-              <h3 className="mt-3 text-base font-bold text-white">No blog posts found</h3>
+              <h3 className="mt-3 text-base font-bold text-white">
+                No blog posts found
+              </h3>
               <p className="mt-1 text-xs text-slate-400">
-                {searchQuery ? "Try a different search keyword." : "Click 'New Blog Post' to publish your first post!"}
+                {searchQuery
+                  ? "Try a different search keyword."
+                  : "Click 'New Blog Post' to publish your first post!"}
               </p>
             </div>
           ) : (
@@ -363,7 +429,9 @@ const AdminBlogDashboard = () => {
                   <thead className="border-b border-white/10 bg-slate-950/60 text-[0.7rem] uppercase tracking-wider text-slate-400">
                     <tr>
                       <th className="px-5 py-3.5">Post Details</th>
-                      <th className="hidden md:table-cell px-5 py-3.5">Category</th>
+                      <th className="hidden md:table-cell px-5 py-3.5">
+                        Category
+                      </th>
                       <th className="px-5 py-3.5">Status</th>
                       <th className="hidden sm:table-cell px-5 py-3.5">Date</th>
                       <th className="px-5 py-3.5 text-right">Actions</th>
@@ -371,7 +439,10 @@ const AdminBlogDashboard = () => {
                   </thead>
                   <tbody className="divide-y divide-white/5">
                     {filteredBlogs.map((blog) => (
-                      <tr key={blog._id || blog.slug} className="transition hover:bg-white/[0.02]">
+                      <tr
+                        key={blog._id || blog.slug}
+                        className="transition hover:bg-white/[0.02]"
+                      >
                         {/* Title & Image */}
                         <td className="px-5 py-4">
                           <div className="flex items-center gap-3.5">
@@ -387,8 +458,12 @@ const AdminBlogDashboard = () => {
                               </div>
                             )}
                             <div className="min-w-0 max-w-xs sm:max-w-md">
-                              <h4 className="line-clamp-1 font-bold text-white">{blog.title}</h4>
-                              <p className="line-clamp-1 text-xs text-slate-400">/{blog.slug}</p>
+                              <h4 className="line-clamp-1 font-bold text-white">
+                                {blog.title}
+                              </h4>
+                              <p className="line-clamp-1 text-xs text-slate-400">
+                                /{blog.slug}
+                              </p>
                             </div>
                           </div>
                         </td>
@@ -411,18 +486,23 @@ const AdminBlogDashboard = () => {
                                 : "bg-amber-500/10 text-amber-400 border border-amber-500/20 hover:bg-amber-500/20"
                             }`}
                           >
-                            <span className={`h-1.5 w-1.5 rounded-full ${blog.published ? "bg-emerald-400" : "bg-amber-400"}`} />
+                            <span
+                              className={`h-1.5 w-1.5 rounded-full ${blog.published ? "bg-emerald-400" : "bg-amber-400"}`}
+                            />
                             {blog.published ? "Published" : "Draft"}
                           </button>
                         </td>
 
                         {/* Date */}
                         <td className="hidden sm:table-cell px-5 py-4 text-xs text-slate-400 whitespace-nowrap">
-                          {new Date(blog.createdAt).toLocaleDateString("en-US", {
-                            month: "short",
-                            day: "numeric",
-                            year: "numeric",
-                          })}
+                          {new Date(blog.createdAt).toLocaleDateString(
+                            "en-US",
+                            {
+                              month: "short",
+                              day: "numeric",
+                              year: "numeric",
+                            },
+                          )}
                         </td>
 
                         {/* Actions */}
@@ -476,9 +556,12 @@ const AdminBlogDashboard = () => {
               exit={{ opacity: 0, scale: 0.95 }}
               className="w-full max-w-sm rounded-2xl border border-white/10 bg-slate-900 p-6 shadow-2xl"
             >
-              <h3 className="text-lg font-bold text-white">Delete this post?</h3>
+              <h3 className="text-lg font-bold text-white">
+                Delete this post?
+              </h3>
               <p className="mt-2 text-xs sm:text-sm text-slate-400">
-                This action cannot be undone. Are you sure you want to permanently remove this blog?
+                This action cannot be undone. Are you sure you want to
+                permanently remove this blog?
               </p>
               <div className="mt-6 flex justify-end gap-3">
                 <button
@@ -516,7 +599,8 @@ const AdminBlogDashboard = () => {
                     {editingBlog ? "Edit Blog Post" : "Create New Blog Post"}
                   </h3>
                   <p className="text-xs text-slate-400">
-                    Write technical guides, solutions, and updates for SmartFix clients
+                    Write technical guides, solutions, and updates for SmartFix
+                    clients
                   </p>
                 </div>
                 <button
@@ -533,7 +617,9 @@ const AdminBlogDashboard = () => {
                   type="button"
                   onClick={() => setActiveTab("edit")}
                   className={`rounded-lg px-4 py-1.5 text-xs font-semibold transition ${
-                    activeTab === "edit" ? "bg-cyan-400 text-slate-950" : "text-slate-400 hover:text-white"
+                    activeTab === "edit"
+                      ? "bg-cyan-400 text-slate-950"
+                      : "text-slate-400 hover:text-white"
                   }`}
                 >
                   Editor
@@ -542,7 +628,9 @@ const AdminBlogDashboard = () => {
                   type="button"
                   onClick={() => setActiveTab("preview")}
                   className={`rounded-lg px-4 py-1.5 text-xs font-semibold transition ${
-                    activeTab === "preview" ? "bg-cyan-400 text-slate-950" : "text-slate-400 hover:text-white"
+                    activeTab === "preview"
+                      ? "bg-cyan-400 text-slate-950"
+                      : "text-slate-400 hover:text-white"
                   }`}
                 >
                   Preview
@@ -550,10 +638,15 @@ const AdminBlogDashboard = () => {
               </div>
 
               {activeTab === "edit" ? (
-                <form onSubmit={handleSubmitBlog} className="mt-5 space-y-4 max-h-[65vh] overflow-y-auto pr-1">
+                <form
+                  onSubmit={handleSubmitBlog}
+                  className="mt-5 space-y-4 max-h-[65vh] overflow-y-auto pr-1"
+                >
                   {/* Title */}
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300">Article Title *</label>
+                    <label className="block text-xs font-semibold text-slate-300">
+                      Article Title *
+                    </label>
                     <input
                       type="text"
                       value={formData.title}
@@ -567,11 +660,15 @@ const AdminBlogDashboard = () => {
                   {/* Slug & Category */}
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300">URL Slug *</label>
+                      <label className="block text-xs font-semibold text-slate-300">
+                        URL Slug *
+                      </label>
                       <input
                         type="text"
                         value={formData.slug}
-                        onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, slug: e.target.value })
+                        }
                         placeholder="e.g. rockwell-controllogix-migration"
                         className="mt-1.5 w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-2.5 text-sm text-white placeholder-slate-500 outline-none transition focus:border-cyan-400"
                         required
@@ -579,56 +676,121 @@ const AdminBlogDashboard = () => {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300">Category</label>
+                      <label className="block text-xs font-semibold text-slate-300">
+                        Category
+                      </label>
                       <select
                         value={formData.category}
-                        onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, category: e.target.value })
+                        }
                         className="mt-1.5 w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-2.5 text-sm text-white outline-none transition focus:border-cyan-400"
                       >
-                        <option value="Rockwell Automation">Rockwell Automation</option>
-                        <option value="Siemens Integration">Siemens Integration</option>
+                        <option value="Rockwell Automation">
+                          Rockwell Automation
+                        </option>
+                        <option value="Siemens Integration">
+                          Siemens Integration
+                        </option>
                         <option value="Machine Safety">Machine Safety</option>
                         <option value="VFD & Drives">VFD & Drives</option>
-                        <option value="System Integration">System Integration</option>
+                        <option value="System Integration">
+                          System Integration
+                        </option>
                       </select>
                     </div>
                   </div>
 
-                  {/* Image URL */}
+                  {/* Cover image */}
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300">Cover Image URL</label>
-                    <input
-                      type="url"
-                      value={formData.image}
-                      onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                      placeholder="https://images.unsplash.com/..."
-                      className="mt-1.5 w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-2.5 text-sm text-white placeholder-slate-500 outline-none transition focus:border-cyan-400"
-                    />
-                    {/* Preset Image Shortcuts */}
-                    <div className="mt-2 flex items-center gap-2">
-                      <span className="text-[0.65rem] text-slate-400">Quick presets:</span>
-                      {PRESET_IMAGES.map((url, i) => (
+                    <label className="block text-xs font-semibold text-slate-300">
+                      Cover Image
+                    </label>
+
+                    {formData.image ? (
+                      <div className="relative mt-1.5 overflow-hidden rounded-xl border border-white/15 bg-slate-950">
+                        <img
+                          src={formData.image}
+                          alt="Selected cover preview"
+                          className="h-52 w-full object-cover"
+                        />
+                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/55 via-transparent to-transparent" />
                         <button
-                          key={i}
                           type="button"
-                          onClick={() => setFormData({ ...formData, image: url })}
-                          className="h-6 w-9 overflow-hidden rounded border border-white/20 hover:border-cyan-400"
+                          onClick={() =>
+                            setFormData((current) => ({
+                              ...current,
+                              image: "",
+                            }))
+                          }
+                          className="absolute right-3 top-3 flex items-center gap-1.5 rounded-lg border border-red-300/25 bg-slate-950/85 px-3 py-2 text-xs font-semibold text-red-300 shadow-lg backdrop-blur transition hover:border-red-300/50 hover:bg-red-500/20"
                         >
-                          <img src={url} alt="preset" className="h-full w-full object-cover" />
+                          <X size={14} aria-hidden="true" />
+                          Remove image
                         </button>
-                      ))}
-                    </div>
+                        <p className="absolute bottom-3 left-3 text-xs font-medium text-white">
+                          Cover image selected
+                        </p>
+                      </div>
+                    ) : (
+                      <label
+                        htmlFor="cover-image"
+                        className="mt-1.5 flex min-h-[140px] w-full cursor-pointer flex-col items-center justify-center overflow-hidden rounded-xl border border-dashed border-white/20 bg-slate-950 transition hover:border-cyan-400 hover:bg-slate-900"
+                      >
+                        <div className="flex flex-col items-center justify-center gap-2 p-6 text-center">
+                          <span className="text-2xl text-cyan-400">+</span>
+                          <p className="text-sm font-medium text-slate-300">
+                            Click to upload cover image
+                          </p>
+                          <p className="text-[0.65rem] text-slate-500">
+                            PNG, JPG, JPEG or WEBP — maximum 8 MB
+                          </p>
+                        </div>
+
+                        <input
+                          id="cover-image"
+                          type="file"
+                          accept="image/png,image/jpeg,image/webp"
+                          className="hidden"
+                          onChange={async (e) => {
+                            const file = e.target.files?.[0];
+                            if (!file) return;
+
+                            if (file.size > 8 * 1024 * 1024) {
+                              showToast("Cover image must be smaller than 8 MB", "error");
+                              e.target.value = "";
+                              return;
+                            }
+
+                            try {
+                              const optimizedImage = await prepareCoverImage(file);
+                              setFormData((current) => ({
+                                ...current,
+                                image: optimizedImage,
+                              }));
+                            } catch (error) {
+                              showToast(error.message, "error");
+                            } finally {
+                              e.target.value = "";
+                            }
+                          }}
+                        />
+                      </label>
+                    )}
                   </div>
 
                   {/* Content (Markdown supported) */}
                   <div>
                     <label className="block text-xs font-semibold text-slate-300">
-                      Article Content (Supports markdown headings ##, ###, bullet points -) *
+                      Article Content (Supports markdown headings ##, ###,
+                      bullet points -) *
                     </label>
                     <textarea
                       rows={9}
                       value={formData.content}
-                      onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, content: e.target.value })
+                      }
                       placeholder="### Section Heading&#10;&#10;Write detailed technical insights, case studies, or guidelines here.&#10;&#10;- Feature 1&#10;- Feature 2"
                       className="mt-1.5 w-full font-mono rounded-xl border border-white/10 bg-slate-950 p-4 text-xs sm:text-sm text-white placeholder-slate-500 outline-none transition focus:border-cyan-400 leading-relaxed"
                       required
@@ -641,10 +803,18 @@ const AdminBlogDashboard = () => {
                       type="checkbox"
                       id="published"
                       checked={formData.published}
-                      onChange={(e) => setFormData({ ...formData, published: e.target.checked })}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          published: e.target.checked,
+                        })
+                      }
                       className="h-4 w-4 rounded border-slate-700 bg-slate-950 text-cyan-500 focus:ring-cyan-400"
                     />
-                    <label htmlFor="published" className="text-xs font-semibold text-slate-200 cursor-pointer">
+                    <label
+                      htmlFor="published"
+                      className="text-xs font-semibold text-slate-200 cursor-pointer"
+                    >
                       Publish immediately to public website
                     </label>
                   </div>
@@ -665,7 +835,8 @@ const AdminBlogDashboard = () => {
                     >
                       {saving ? (
                         <>
-                          <Loader2 size={15} className="animate-spin" /> Saving...
+                          <Loader2 size={15} className="animate-spin" />{" "}
+                          Saving...
                         </>
                       ) : editingBlog ? (
                         "Update Post"
@@ -696,7 +867,8 @@ const AdminBlogDashboard = () => {
                       Slug: /blogs/{formData.slug || "your-slug"}
                     </p>
                     <div className="mt-6 border-t border-white/10 pt-4 text-xs sm:text-sm text-slate-300 whitespace-pre-wrap leading-relaxed">
-                      {formData.content || "Your article content will preview here."}
+                      {formData.content ||
+                        "Your article content will preview here."}
                     </div>
                   </div>
                 </div>

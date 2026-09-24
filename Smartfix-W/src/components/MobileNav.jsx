@@ -1,26 +1,31 @@
 import { useState } from "react";
 import { ArrowUpRight, ChevronDown, Menu, X, ShieldCheck, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 
-const MobileNav = ({ navItems, scrolled, isAuthenticated, user }) => {
+const MobileNav = ({ navItems, isAuthenticated, user }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const closeMobileNav = () => setMobileOpen(false);
 
   const handleMobileNavClick = (e, href) => {
     closeMobileNav();
-    if (href.startsWith("/#")) {
-      const targetId = href.replace("/#", "");
-      if (window.location.pathname === "/") {
-        e.preventDefault();
-        const targetElement = document.getElementById(targetId);
-        if (targetElement) {
-          targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
-          window.history.pushState(null, "", href);
-        }
-      }
+    if (!href.startsWith("/#")) return;
+
+    e.preventDefault();
+    navigate(href);
+
+    if (location.pathname === "/") {
+      const targetId = href.slice(2);
+      requestAnimationFrame(() => {
+        document.getElementById(targetId)?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      });
     }
   };
 
@@ -53,15 +58,17 @@ const MobileNav = ({ navItems, scrolled, isAuthenticated, user }) => {
                   transition={{ delay: index * 0.05 }}
                 >
                   <div className="flex items-center justify-between rounded-xl px-4 py-3.5 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-cyan-400">
-                    {item.href.startsWith("/") && !item.href.startsWith("/#") ? (
-                      <Link to={item.href} onClick={closeMobileNav} className="w-full">
-                        {item.name}
-                      </Link>
-                    ) : (
-                      <a href={item.href} onClick={(e) => handleMobileNavClick(e, item.href)}>
-                        {item.name}
-                      </a>
-                    )}
+                    <Link
+                      to={item.href}
+                      onClick={(e) =>
+                        item.href.startsWith("/#")
+                          ? handleMobileNavClick(e, item.href)
+                          : closeMobileNav()
+                      }
+                      className="w-full"
+                    >
+                      {item.name}
+                    </Link>
 
                     {item.dropdown && (
                       <button
@@ -90,14 +97,14 @@ const MobileNav = ({ navItems, scrolled, isAuthenticated, user }) => {
                       >
                         <div className="ml-4 border-l border-cyan-400/20 pl-3 pb-2 pt-1">
                           {item.dropdown.map((dropdownItem) => (
-                            <a
+                            <Link
                               key={dropdownItem.name}
-                              href={dropdownItem.href}
+                              to={dropdownItem.href}
                               onClick={(e) => handleMobileNavClick(e, dropdownItem.href)}
                               className="block rounded-lg px-4 py-2.5 text-sm text-slate-400 transition hover:bg-cyan-400/10 hover:text-cyan-400"
                             >
                               {dropdownItem.name}
-                            </a>
+                            </Link>
                           ))}
                         </div>
                       </motion.div>
