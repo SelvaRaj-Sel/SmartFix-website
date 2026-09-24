@@ -56,7 +56,7 @@ const Navbar = () => {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-[#010c14]/95 backdrop-blur-md transition-all duration-500">
-      <nav className="mx-auto max-w-8xl px-5 lg:px-8">
+      <nav className="mx-auto max-w-8xl px-5 sm:px-8 lg:px-12">
         <div className="flex h-18 items-center justify-between">
           <Link to="/" className="group flex items-center gap-3">
             <motion.div
@@ -66,14 +66,14 @@ const Navbar = () => {
               <img
                 src={textlogo}
                 alt="Smartfix"
-                className={`h-auto w-48 sm:w-56 lg:w-68 object-contain object-left ${
+                className={`h-auto w-48 sm:w-56 lg:w-56 xl:w-60 object-contain object-left ${
                   scrolled ? "brightness-90" : ""
                 }`}
               />
             </motion.div>
           </Link>
 
-          <div className="hidden items-center gap-1 lg:flex">
+          <div className="hidden items-center gap-1 xl:flex">
             {navItems.map((item) => (
               <div
                 key={item.name}
@@ -151,7 +151,7 @@ const Navbar = () => {
             ))}
           </div>
 
-          <div className="hidden lg:flex lg:items-center lg:gap-3">
+          <div className="hidden xl:flex xl:items-center xl:gap-3">
             <motion.a
               href="/#contact"
               whileHover={{ scale: 1.05 }}

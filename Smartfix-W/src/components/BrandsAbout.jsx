@@ -6,18 +6,20 @@ import AnimatedSection from "./AnimatedSection.jsx";
 import mitsubilogo from "../assets/mitsubi_logo.png";
 import weintek from "../assets/WEINTEK-LOGO.png";
 import micro800 from "../assets/Rockwell/micro 800.jpg"
-import { Check } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { Check } from "lucide-react";
 
 const products = [
   {
   accent: "#C41230",
   logo: rockwellLogo,
   logoClass: "h-12 w-full object-contain sm:h-14",
+  specialistcontent: "We are handling PLCs and HMI VFD and servo vision system and field instruments ",
+  category:["micro 800","micro 800","micro 800","micro 800","micro 800","micro 800","micro 800","micro 800","micro 800"],
   description: "Complete Allen-Bradley and Rockwell Automation solutions for dependable machine control.",
   productlist: [
-    { id: 1, img: micro800, title: "Micro 800", application:["Small machine control", "Packaging"] },
+    { id: 1, img: micro800, title: "Micro 800", application:["Small machine control", "Packaging", "Small machine control", "Packaging", "Packaging", "Packaging", "Packaging", "Packaging",] },
     { id: 2, img: micro800, title: "Micro ", application:["Small machine control", "Packaging"] },
     { id: 3, img: micro800, title: "Micro 800", application:["Small machine control", "Packaging"] },
     { id: 4, img: micro800, title: "Micro ", application:["Small machine control", "Packaging"] },
@@ -38,6 +40,8 @@ const products = [
   accent: "#009999",
   logo: siemensLogo,
   logoClass: "h-11 w-full object-contain sm:h-13",
+  specialistcontent: "We are handling PLCs and HMI VFD and servo vision system and field instruments ",
+  category:["micro 800","micro 800","micro 800","micro 800","micro 800","micro 800","micro 800","micro 800","micro 800"],
   description: "Integrated Siemens technology for efficient, scalable industrial control systems.",
   productlist: [
     { id: 1, img: micro800, title: "Micro 800", application:["Small machine control", "Packaging"] },
@@ -84,54 +88,93 @@ const BrandCard = ({ product }) => {
     >
       <div className="absolute inset-x-0 top-0 z-20 h-1" style={{ backgroundColor: product.accent }} />
 
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeProduct.id}
-          initial={{ opacity: 0, x: 56 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -56 }}
-          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="grid grid-cols-[30%_70%]"
-        >
-          <div className="relative flex min-h-64 flex-col border-r border-white/10 bg-white p-3 sm:min-h-72 sm:p-5">
-            <div className="flex min-h-0 flex-[3] items-center justify-center">
-              <img
-                src={activeProduct.img}
-                alt={activeProduct.title}
-                className="max-h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
-              />
-            </div>
-            <div className="flex flex-[2] items-center border-t border-slate-200 pt-3">
-              <p className="text-center text-[0.65rem] leading-4 text-slate-600 sm:text-xs sm:leading-5">
-                {product.description}
-              </p>
-            </div>
+      <div className="relative z-10 border-b border-white/10 p-5 sm:p-6">
+        <div className="grid items-start gap-3 sm:grid-cols-[minmax(130px,0.65fr)_minmax(0,1.35fr)]">
+          <div className="flex h-14 items-center justify-center sm:h-16">
+            <img
+              src={product.logo}
+              alt="Automation brand"
+              className={`${product.logoClass} object-cover`}
+            />
           </div>
 
-          <div className="relative min-w-0 p-5 sm:p-7">
-            <div className="flex h-10 max-w-40 items-center">
-              <img src={product.logo} alt="Automation brand" className={product.logoClass} />
+          <div className="min-w-0 sm:border-l sm:border-white/10 sm:pl-5">
+            <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-(--primary)">
+              Our specialization
+            </p>
+            <p className="mt-2 text-sm leading-6 text-slate-300">
+              {product.specialistcontent}
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-5 border-t  border-white/10 pt-4">
+          <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-(--primary)">
+            Categories
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {product.category.map((category, index) => (
+              <span
+                key={`${category}-${index}`}
+                className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-slate-300"
+              >
+                {category}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="p-2 pb-8">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeProduct.id}
+            initial={{ opacity: 0, x: 56 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -56 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="grid overflow-hidden rounded-2xl bg-white/[0.025] sm:grid-cols-[32%_68%]"
+          >
+            <div className="relative flex min-h-56 flex-col border-b border-white/10 bg-white p-4 sm:min-h-72 sm:border-r sm:border-b-0 sm:p-5">
+              <div className="flex min-h-0 flex-[3] items-center justify-center">
+                <img
+                  src={activeProduct.img}
+                  alt={activeProduct.title}
+                  className="max-h-full w-full object-contain transition-transform duration-500 group-hover:scale-110"
+                />
+              </div>
+              <div className="flex flex-[2] items-center border-t border-slate-200 pt-3">
+                <p className="text-center text-[0.65rem] leading-4 text-slate-600 sm:text-xs sm:leading-5">
+                  {product.description}
+                </p>
+              </div>
             </div>
-            <h3 className="mt-4 text-xl font-semibold leading-tight text-white sm:text-2xl">
+
+            <div className="relative min-w-0 p-5 sm:p-7">
+              <h3 className="text-xl font-semibold leading-tight text-white sm:text-2xl">
               {activeProduct.title}
-            </h3>
+              </h3>
 
-            <div className="mt-5 border-t border-white/10 pt-4">
-              <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-(--primary)">
-                Applications
-              </p>
-              <ul className="mt-3 space-y-2.5">
-                {activeProduct.application.map((application) => (
-                  <li key={application} className="flex items-start gap-2.5 text-sm leading-5 text-slate-300">
-                    <Check size={15} className="mt-0.5 shrink-0 text-(--primary)" aria-hidden="true" />
-                    <span>{application}</span>
-                  </li>
-                ))}
-              </ul>
+              <div className="mt-5 border-t border-white/10 pt-4">
+                <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-(--primary)">
+                  Applications
+                </p>
+                <ul className="mt-3 flex flex-col w-50 hover:text-white">
+                  {activeProduct.application.map((application, index) => (
+                    <li
+                      key={`${application}-${index}`}
+                      className="flex min-w-0 items-start gap-2 rounded-lg  text-xs leading-5 text-slate-300"
+                    >
+                      <Check className="mt-0.5 shrink-0 h-4 font-bold" aria-hidden="true" style={{ color: product.accent }}/>
+                      <span>{application}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-          </div>
-        </motion.div>
-      </AnimatePresence>
+          </motion.div>
+        </AnimatePresence>
+      </div>
 
       <div className="absolute bottom-3 left-1/2 z-20 flex -translate-x-1/2 gap-1.5" aria-label="Product slideshow progress">
         {product.productlist.map((item, index) => (

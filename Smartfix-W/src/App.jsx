@@ -34,7 +34,10 @@ function ScrollToHash() {
   const location = useLocation();
 
   useEffect(() => {
-    if (!location.hash) return;
+    if (!location.hash) {
+      window.scrollTo({ top: 0, behavior: "instant" });
+      return;
+    }
 
     const id = location.hash.replace("#", "");
     const target = document.getElementById(id);
@@ -57,8 +60,19 @@ function ScrollToHash() {
 ------------------------------ */
 
 function PageWrapper({ children }) {
+  const location = useLocation();
+
   return (
     <motion.div
+      onAnimationComplete={() => {
+        // The destination is now mounted and its entrance transform has settled.
+        if (location.hash) {
+          document.getElementById(location.hash.slice(1))?.scrollIntoView({
+            behavior: "instant",
+            block: "start",
+          });
+        }
+      }}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}

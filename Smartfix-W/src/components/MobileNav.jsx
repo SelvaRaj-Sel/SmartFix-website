@@ -28,7 +28,7 @@ const MobileNav = ({ navItems, scrolled, isAuthenticated, user }) => {
     <>
       <button
         onClick={() => setMobileOpen((isOpen) => !isOpen)}
-        className="flex h-11 w-11 items-center justify-center rounded-xl border transition lg:hidden border-white/10 bg-white/5 text-white hover:border-cyan-300/40 hover:bg-cyan-300/10 hover:text-cyan-300"
+        className="flex h-11 w-11 items-center justify-center rounded-xl border transition xl:hidden border-white/10 bg-white/5 text-white hover:border-cyan-300/40 hover:bg-cyan-300/10 hover:text-cyan-300"
         aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
         aria-expanded={mobileOpen}
       >
@@ -42,7 +42,7 @@ const MobileNav = ({ navItems, scrolled, isAuthenticated, user }) => {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="absolute left-0 right-0 top-full overflow-hidden px-5 lg:hidden"
+            className="absolute left-0 right-0 top-full overflow-hidden px-5 xl:hidden"
           >
             <div className="mb-5 rounded-2xl border border-white/10 bg-[#081525]/95 p-3 shadow-2xl backdrop-blur-xl">
               {navItems.map((item, index) => (
