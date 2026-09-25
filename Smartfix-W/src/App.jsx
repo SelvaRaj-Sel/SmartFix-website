@@ -1,5 +1,5 @@
 ﻿import "./App.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import {
   Route,
@@ -25,6 +25,7 @@ import Services from "./components/Services.jsx";
 import Specialization from "./components/Specialization.jsx";
 import Industries from "./components/Industries.jsx";
 import Contact from "./components/Contact.jsx";
+import Query from "./components/Query.jsx";
 
 /* -----------------------------
    Scroll To Hash
@@ -111,10 +112,11 @@ function HomePage() {
 
 function WebsiteLayout() {
   const location = useLocation();
+  const [queryOpen, setQueryOpen] = useState(false);
 
   return (
     <>
-      <Navbar />
+      <Navbar onOpenQuery={() => setQueryOpen(true)} />
 
       <ScrollToHash />
 
@@ -158,16 +160,12 @@ function WebsiteLayout() {
         </Routes>
       </AnimatePresence>
 
+      <AnimatePresence>
+        {queryOpen && <Query onClose={() => setQueryOpen(false)} />}
+      </AnimatePresence>
+
       {/* WhatsApp Floating Button */}
-      <a
-        href="https://wa.me/919894571542?text=Hello%20Smartfix%20Automation%2C%20I%20want%20to%20know%20more%20about%20your%20services."
-        target="_blank"
-        rel="noreferrer"
-        aria-label="Chat on WhatsApp"
-        className="fixed bottom-20 right-5 z-50 flex h-11 w-11 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_10px_30px_rgba(37,211,102,0.45)] transition hover:scale-105 hover:shadow-[0_12px_35px_rgba(37,211,102,0.5)] sm:bottom-18 sm:right-8"
-      >
-        <FaWhatsapp size={28} />
-      </a>
+     
 
       <Footer />
     </>

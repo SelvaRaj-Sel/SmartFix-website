@@ -7,7 +7,7 @@ import { FaUser } from "react-icons/fa";
 import { Link } from "react-router";
 import { useAuth } from "../context/AuthContext.jsx";
 
-const Navbar = () => {
+const Navbar = ({ onOpenQuery }) => {
   const { isAuthenticated, user } = useAuth();
 
   const navItems = [
@@ -150,18 +150,16 @@ const Navbar = () => {
           </div>
 
           <div className="hidden xl:flex xl:items-center xl:gap-3">
-            <motion.a
-              href="/#contact"
+            <motion.button
+              type="button"
+              onClick={onOpenQuery}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
-              className="group relative flex items-center justify-center gap-2 overflow-hidden rounded-full border border-cyan-400/40 bg-(--primary) px-2 py-2 text-sm font-bold text-slate-950 transition-colors duration-300 hover:bg-[#14bdf0] hover:shadow-[0_0_30px_rgba(34,211,238,0.25)]"
+              className="group relative flex items-center justify-center gap-2 overflow-hidden rounded-full border border-cyan-400/40 bg-(--primary) px-3 py-2 text-sm font-bold text-slate-950 transition-colors duration-300 hover:bg-[#14bdf0] hover:shadow-[0_0_30px_rgba(34,211,238,0.25)]"
             >
               <span>Get a Quote</span>
-              <ArrowUpRight
-                size={17}
-                className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-              />
-            </motion.a>
+              <ArrowUpRight size={17} className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+            </motion.button>
 
             <div className="group relative flex items-center">
               {isAuthenticated ? (
@@ -186,7 +184,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          <MobileNav navItems={navItems} isAuthenticated={isAuthenticated} user={user} />
+          <MobileNav navItems={navItems} isAuthenticated={isAuthenticated} user={user} onOpenQuery={onOpenQuery} />
         </div>
       </nav>
     </header>

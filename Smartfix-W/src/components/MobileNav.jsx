@@ -3,7 +3,7 @@ import { ArrowUpRight, ChevronDown, Menu, X, ShieldCheck, User } from "lucide-re
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation, useNavigate } from "react-router";
 
-const MobileNav = ({ navItems, isAuthenticated, user }) => {
+const MobileNav = ({ navItems, isAuthenticated, user, onOpenQuery }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
   const location = useLocation();
@@ -132,15 +132,18 @@ const MobileNav = ({ navItems, isAuthenticated, user }) => {
                   </Link>
                 )}
 
-                <motion.a
-                  href="/#contact"
-                  onClick={(e) => handleMobileNavClick(e, "/#contact")}
+                <motion.button
+                  type="button"
+                  onClick={() => {
+                    closeMobileNav();
+                    onOpenQuery();
+                  }}
                   whileTap={{ scale: 0.95 }}
                   className="flex items-center justify-center gap-2 rounded-xl bg-(--primary-dark) px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-300"
                 >
                   Get a Quote
                   <ArrowUpRight size={17} />
-                </motion.a>
+                </motion.button>
               </div>
             </div>
           </motion.div>
