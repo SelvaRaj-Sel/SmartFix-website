@@ -135,19 +135,19 @@ const ServiceCard = ({ icon: Icon, title, text, index, bgimage }) => {
           DARK SHADOW LAYER
       ========================================= */}
       <div
-        className="
-          absolute inset-0 z-[1]
-          bg-gradient-to-t
-          from-[#020d1a]/100
-          via-[#020d1a]/90
-          to-[#020d1a]/60
-          transition-all duration-700
-          group-hover:from-[#020d1a]/90
-          group-hover:via-[#020d1a]/60
-          group-hover:to-[#020d1a]/20
-        "
-        aria-hidden="true"
-      />
+  className="
+    absolute inset-0 z-[1]
+    bg-gradient-to-t
+    from-[#020d1a]/75
+    via-[#020d1a]/15
+    to-transparent
+    transition-all duration-700
+    group-hover:from-[#020d1a]/65
+    group-hover:via-[#020d1a]/25
+    group-hover:to-[#020d1a]/5
+  "
+  aria-hidden="true"
+/>
 
       {/* =========================================
           CONTENT
@@ -161,6 +161,7 @@ const ServiceCard = ({ icon: Icon, title, text, index, bgimage }) => {
           transition-transform duration-700
           ease-[cubic-bezier(0.22,1,0.36,1)]
           group-hover:-translate-y-2
+          
         "
       >
 <div className="flex items-center gap-3">
@@ -200,7 +201,7 @@ const ServiceCard = ({ icon: Icon, title, text, index, bgimage }) => {
             text-white
             drop-shadow-[0_4px_12px_rgba(0,0,0,0.85)]
             transition-colors duration-500
-            group-hover:text-cyan-100
+            group-hover:text-cyan-200
           "
         >
           {title}
