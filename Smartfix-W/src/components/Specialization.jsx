@@ -145,7 +145,7 @@ const Specialization = () => {
   return (
     <section
       id="specializations"
-      className="relative overflow-hidden bg-[#020d1a] py-12 text-white sm:py-14 lg:py-16"
+      className="relative overflow-hidden bg-[#020d1a] py-8 text-white sm:py-10"
     >
       {/* ===================================================
           TOP LINE

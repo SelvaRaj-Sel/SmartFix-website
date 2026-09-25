@@ -1,5 +1,24 @@
 @import "tailwindcss";
 
+/* Native snapping keeps wheel, touch, and keyboard scrolling in normal flow.
+   Oversized snap areas remain freely scrollable between their top and bottom. */
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.home-page-snap) {
+    scroll-snap-type: y mandatory;
+  }
+
+  .home-page-snap > section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  /* The footer is a final destination, rather than snapping back to Contact. */
+  html:has(.home-page-snap) footer {
+    scroll-snap-align: end;
+    scroll-snap-stop: always;
+  }
+}
+
 :root {
   --primary: #00A0D2;
   --primary-dark: #0077B6;

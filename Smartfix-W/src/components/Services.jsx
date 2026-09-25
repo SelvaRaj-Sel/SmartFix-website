@@ -248,7 +248,7 @@ const ServiceCard = ({ icon: Icon, title, text, index, bgimage }) => {
 };
 
 const Services = () => (
-  <section id="services" className="relative isolate overflow-hidden bg-[#020d1a] py-12 text-white sm:py-14">
+  <section id="services" className="relative isolate overflow-hidden bg-[#020d1a] py-8 text-white sm:py-10">
      <div
       className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(0,168,232,0.2),transparent)]"
       aria-hidden="true"

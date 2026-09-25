@@ -154,7 +154,7 @@ const Navbar = () => {
               href="/#contact"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
-              className="group relative flex items-center gap-2 overflow-hidden rounded-full border border-cyan-400/40 bg-[#00A0D2] px-5 py-2.5 text-sm font-bold text-slate-950 transition-colors duration-300 hover:bg-[#14bdf0] hover:shadow-[0_0_30px_rgba(34,211,238,0.25)]"
+              className="group relative flex items-center justify-center gap-2 overflow-hidden rounded-full border border-cyan-400/40 bg-(--primary) px-2 py-2 text-sm font-bold text-slate-950 transition-colors duration-300 hover:bg-[#14bdf0] hover:shadow-[0_0_30px_rgba(34,211,238,0.25)]"
             >
               <span>Get a Quote</span>
               <ArrowUpRight

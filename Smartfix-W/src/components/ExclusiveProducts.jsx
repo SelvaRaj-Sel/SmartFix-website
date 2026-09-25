@@ -37,7 +37,7 @@ const products = [
     title: "HMI Panels",
     description:
       "PanelView Plus, PanelView 5000, Siemens Comfort Panels, Basic and advanced operator interfaces.",
-    images: [PLC2],
+    images: [PLC4, PLC3, PLC2, PLC1],
     applications:
       "Operator stations, production monitoring, machine visualization, and HMI upgrades.",
     specifications: [
@@ -53,7 +53,7 @@ const products = [
     title: "VFD Drives",
     description:
       "PowerFlex 523/755, Siemens SINAMICS G120, V20, V30 variable frequency drives for motor control.",
-    images: [PLC1],
+    images: [PLC3, PLC2, PLC4, PLC1],
     applications:
       "Pumps, conveyors, fans, compressors, mixers, and other variable-speed motor applications.",
     specifications: [
@@ -69,7 +69,7 @@ const products = [
     title: "Servo Systems",
     description:
       "Kinetix 5500/5700 servo drives, SIMOTICS servo motors, and high-precision motion control systems.",
-    images: [PLC3],
+    images: [PLC4, PLC1, PLC1, PLC3],
     applications:
       "Packaging, robotics, material handling, and precision machine motion.",
     specifications: [
@@ -85,7 +85,7 @@ const products = [
     title: "Vision Systems",
     description:
       "Machine vision cameras, sensors, barcode readers, and inspection systems for quality assurance.",
-    images: [PLC4],
+    images: [PLC1, PLC2, PLC3, PLC4],
     applications:
       "Defect detection, measurement, identification, alignment, and automated quality inspection.",
     specifications: [
@@ -101,7 +101,7 @@ const products = [
     title: "Field Instruments",
     description:
       "Sensors, transmitters, I/O modules, communication adapters, network switches, and safety relays.",
-    images: [PLC1],
+    images: [PLC1, PLC2, PLC3, PLC4],
     applications:
       "Field measurement, machine connectivity, industrial networking, and equipment safety.",
     specifications: [
@@ -354,7 +354,7 @@ const ExclusiveProducts = () => {
   return (
     <section
       id="products"
-      className="relative overflow-hidden bg-[#020d1a] py-12 sm:py-14"
+      className="relative overflow-hidden bg-[#020d1a] py-8 sm:py-10"
       aria-labelledby="product-catalog-heading"
     >
       <div

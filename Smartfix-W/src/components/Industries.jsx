@@ -318,7 +318,7 @@ const IndustryCard = () => {
 };
 
 const Industries = () => (
-  <section id="industries" className="relative overflow-hidden bg-[#020d1a] py-12 text-white sm:py-14 ">
+  <section id="industries" className="relative overflow-hidden bg-[#020d1a] py-8 text-white sm:py-10 ">
          <div
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(0,168,232,0.25),transparent)]"/>
 

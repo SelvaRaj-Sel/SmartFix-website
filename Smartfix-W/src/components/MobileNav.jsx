@@ -33,7 +33,7 @@ const MobileNav = ({ navItems, isAuthenticated, user }) => {
     <>
       <button
         onClick={() => setMobileOpen((isOpen) => !isOpen)}
-        className="flex h-11 w-11 items-center justify-center rounded-xl border transition xl:hidden border-white/10 bg-white/5 text-white hover:border-cyan-300/40 hover:bg-cyan-300/10 hover:text-cyan-300"
+        className="flex h-11 w-11 items-center justify-center rounded-xl border transition xl:hidden border-white/10 bg-white/5 text-white hover:border-cyan-300/40 hover:bg-cyan-300/10 hover:text-(--primary)"
         aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
         aria-expanded={mobileOpen}
       >

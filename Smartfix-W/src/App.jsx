@@ -35,7 +35,7 @@ function ScrollToHash() {
 
   useEffect(() => {
     if (!location.hash) {
-      window.scrollTo({ top: 0, behavior: "instant" });
+      window.scrollTo({ top: -10, behavior: "instant" });
       return;
     }
 
@@ -92,12 +92,13 @@ function PageWrapper({ children }) {
 
 function HomePage() {
   return (
-    <main>
+    <main className="home-page-snap">
       <Hero />
+      <Specialization />
+
       <Brands />
       <ExclusiveProducts />
       <Services />
-      <Specialization />
       <Industries />
       <Contact />
     </main>
