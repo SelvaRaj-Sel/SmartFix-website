@@ -91,7 +91,7 @@ const orbitNodes = [
   { label: "SENSOR", icon: Radio, x: 30, y: 86 },
   { label: "SAFETY", icon: ShieldCheck, x: 11, y: 59 },
   { label: "NETWORK", icon: Network, x: 17, y: 24 },
-];
+]; 
 
 function AutomationOrbit({ compact = false }) {
   const reduceMotion = useReducedMotion();
