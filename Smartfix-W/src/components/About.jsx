@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { CheckCircle2, Cpu, Gauge, Network, ShieldCheck, Monitor, Radio, Cloud, Layers3, CircleGauge } from "lucide-react";
 import { motion, useReducedMotion, useScroll } from "framer-motion";
-import icon from "../assets/icon.png"
+import icon from "../assets/Icon.png"
 
 const strengths = [
   {
