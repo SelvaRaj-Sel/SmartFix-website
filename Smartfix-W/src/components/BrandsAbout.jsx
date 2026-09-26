@@ -414,7 +414,7 @@ const BrandsAbout = () => {
 
       ${
         idx !== brandslogo.length - 1
-          ? "border-b border-slate-300"
+          ? "border-b border-slate-300 sm:border-r-0"
           : ""
       }
     `}

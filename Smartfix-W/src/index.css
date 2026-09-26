@@ -2,6 +2,7 @@
 
 @theme {
 	--max-width-8xl: 90rem;
+	--font-sans: "Barlow", "Segoe UI", sans-serif;
 }
 
 @keyframes riseIn {
@@ -37,8 +38,7 @@
 body {
 	margin: 0;
 	background: #06111d;
-	font-family: Inter, "Segoe UI", sans-serif;
-	font-family: "Barlow", "Segoe UI", sans-serif;
+	font-family: var(--font-sans);
 	font-size: 1rem;
 }
 
@@ -62,10 +62,5 @@ section[id] {
 	html { scroll-behavior: auto; }
 }
 
-body {
-	margin: 0;
-	background: #06111d;
-	font-family: Inter, "Segoe UI", sans-serif;
-}
 
 
