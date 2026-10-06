@@ -41,6 +41,18 @@ const getAuthHeaders = () => {
 };
 
 export const api = {
+  async sendEnquiry(fields) {
+    const response = await fetchWithTimeout(`${API_BASE.replace(/\/$/, "")}/contact`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(fields),
+    }, 60000);
+    const data = await readResponse(response);
+    if (!response.ok || data.success !== true) {
+      throw new Error(data.message || "Could not send your enquiry. Please try again.");
+    }
+    return data;
+  },
   // Authentication: checks backend database, with safe development fallback
   async login(email, password) {
     try {
@@ -58,7 +70,7 @@ export const api = {
         localStorage.setItem("smartfix_auth_user", JSON.stringify(data.user));
       }
       return data;
-    } catch (err) {
+    } catch {
       // If backend is not running or network failed, allow default admin credentials
       if (
         err.message.includes("fetch") ||
@@ -118,7 +130,7 @@ export const api = {
         return data.blogs;
       }
       return FALLBACK_BLOGS;
-    } catch (err) {
+    } catch {
       return FALLBACK_BLOGS;
     }
   },
@@ -130,7 +142,7 @@ export const api = {
         const data = await res.json();
         if (data.blog) return data.blog;
       }
-    } catch (err) {}
+    } catch {}
     const found = FALLBACK_BLOGS.find((b) => b.slug === slug);
     if (found) return found;
     throw new Error("Blog post not found");
@@ -145,7 +157,7 @@ export const api = {
       if (!res.ok) throw new Error("Failed to fetch admin blogs");
       const data = await res.json();
       return data.blogs || [];
-    } catch (err) {
+    } catch {
       return FALLBACK_BLOGS;
     }
   },

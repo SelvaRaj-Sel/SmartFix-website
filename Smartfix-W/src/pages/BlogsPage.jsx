@@ -1,7 +1,7 @@
 ﻿import { useState, useEffect } from "react";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
-import { Search, Calendar, User, Clock, ArrowRight, BookOpen, Sparkles } from "lucide-react";
+import { Calendar, User, Clock, ArrowRight, BookOpen, Sparkles } from "lucide-react";
 import { api } from "../services/api.js";
 
 const categories = ["All", "Rockwell Automation", "Siemens Integration", "Machine Safety", "VFD & Drives", "System Integration"];

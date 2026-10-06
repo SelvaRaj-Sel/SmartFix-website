@@ -1,16 +1,4 @@
-import {
-  ArrowUpRight,
-  BriefcaseBusiness,
-  Cable,
-  Cog,
-  Cpu,
-  Gauge,
-  GraduationCap,
-  Radar,
-  Settings2,
-  ShieldCheck,
-  Wrench,
-} from "lucide-react";
+import { BriefcaseBusiness, Cable, Cpu, Gauge, GraduationCap, Settings2, ShieldCheck, Wrench } from "lucide-react";
 import { motion } from "framer-motion";
 import { use3DTilt } from "../hooks/use3DTilt.js";
 import tech from "../assets/hero.jpg";

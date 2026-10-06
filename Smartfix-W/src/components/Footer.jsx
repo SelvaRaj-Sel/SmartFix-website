@@ -1,4 +1,3 @@
-import { Link } from "react-router";
 import textlogo from "../assets/logo-1.png";
 import { motion } from "framer-motion";
 

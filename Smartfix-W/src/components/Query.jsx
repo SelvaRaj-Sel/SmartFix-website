@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Bot, CheckCircle2, RotateCcw, Send, User, X } from "lucide-react";
 import { motion } from "framer-motion";
-import emailjs from "@emailjs/browser";
+import { api } from "../services/api.js";
 import icon from '../assets/Icon.png'
 
 const steps = [
@@ -76,23 +76,7 @@ export default function Query({ onClose }) {
     setSending(true);
     setError("");
     try {
-      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-      if (!serviceId || !templateId || !publicKey) {
-        setError("Email sending is not configured yet. Please contact info@smartfixautomation.com.");
-        return;
-      }
-      await emailjs.send(serviceId, templateId, {
-        from_name: completedAnswers.name,
-        company: completedAnswers.company || "N/A",
-        email: completedAnswers.email,
-        phone: completedAnswers.phone || "N/A",
-        service: completedAnswers.service || "Not specified",
-        message: completedAnswers.message,
-        reply_to: completedAnswers.email,
-        to_email: "info@smartfixautomation.com",
-      }, { publicKey });
+      await api.sendEnquiry(completedAnswers);
       setSubmitted(true);
     } catch {
       setError("We could not confirm your email was sent. Your answers are still here. Please contact info@smartfixautomation.com.");
@@ -147,7 +131,7 @@ export default function Query({ onClose }) {
               <div key={step.name} className="space-y-3">
                 <AssistantMessage>{step.prompt}</AssistantMessage>
                 <div className="ml-auto flex max-w-[88%] items-end justify-end gap-2">
-                  <div className="min-w-0 whitespace-pre-wrap break-words rounded-2xl rounded-br-sm bg-(--primary) px-4 py-3 text-sm leading-6">{answers[step.name] || "Skipped"}</div>
+                  <div className="min-w-0 whitespace-pre-wrap break-words rounded-2xl rounded-br-sm bg-white/30 px-4 py-3 text-sm leading-6">{answers[step.name] || "Skipped"}</div>
                   <div className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white/10 text-slate-300"><User size={15} /></div>
                 </div>
               </div>

@@ -1,6 +1,5 @@
 ﻿import "./App.css";
 import { useEffect, useState } from "react";
-import { FaWhatsapp } from "react-icons/fa";
 import {
   Route,
   Routes,
@@ -164,10 +163,7 @@ function WebsiteLayout() {
         {queryOpen && <Query onClose={() => setQueryOpen(false)} />}
       </AnimatePresence>
 
-      {/* WhatsApp Floating Button */}
-     
-
-      <Footer />
+ <Footer />
     </>
   );
 }

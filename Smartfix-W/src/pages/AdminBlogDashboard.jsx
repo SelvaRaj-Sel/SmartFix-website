@@ -1,25 +1,7 @@
 ﻿import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Plus,
-  Edit,
-  Trash2,
-  Eye,
-  EyeOff,
-  LogOut,
-  ExternalLink,
-  Search,
-  CheckCircle2,
-  AlertCircle,
-  FileText,
-  Clock,
-  Sparkles,
-  X,
-  Loader2,
-  ArrowLeft,
-  Image as ImageIcon,
-} from "lucide-react";
+import { Plus, Edit, Trash2, Eye, LogOut, ExternalLink, Search, CheckCircle2, AlertCircle, FileText, X, Loader2, Image as ImageIcon } from "lucide-react";
 import Logo from "../assets/logo-1.png";
 import { useAuth } from "../context/AuthContext.jsx";
 import { api } from "../services/api.js";

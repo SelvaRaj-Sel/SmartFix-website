@@ -1,24 +1,11 @@
 ﻿import { useState, useEffect } from "react";
-import { useParams, Link, useNavigate } from "react-router";
+import { useParams, Link } from "react-router";
 import { motion } from "framer-motion";
-import {
-  ArrowLeft,
-  Calendar,
-  User,
-  Clock,
-  Share2,
-  Check,
-  ChevronRight,
-  Sparkles,
-  PhoneCall,
-  ShieldCheck,
-  Cpu
-} from "lucide-react";
+import { ArrowLeft, Calendar, User, Clock, Share2, Check, ChevronRight, Sparkles, PhoneCall, Cpu } from "lucide-react";
 import { api } from "../services/api.js";
 
 const BlogPostPage = () => {
   const { slug } = useParams();
-  const navigate = useNavigate();
   const [blog, setBlog] = useState(null);
   const [relatedBlogs, setRelatedBlogs] = useState([]);
   const [loading, setLoading] = useState(true);

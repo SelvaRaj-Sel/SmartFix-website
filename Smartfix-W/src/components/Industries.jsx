@@ -31,35 +31,6 @@ const industries = [
 
 
 
-//   const { ref, style, onMouseMove, onMouseLeave } = use3DTilt({ maxRotation: 5, perspective: 1200 });
-
-//   return (
-//     <motion.article
-//       ref={ref}
-//       style={style}
-//       onMouseMove={onMouseMove}
-//       onMouseLeave={onMouseLeave}
-//       initial={{ opacity: 0, y: 40, rotateX: -8 }}
-//       whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-//       viewport={{ once: true, amount: 0.2 }}
-//       transition={{ duration: 0.5, delay: index * 0.1 }}
-//       className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-5 shadow-[0_18px_40px_rgba(2,6,23,0.22)] hover:-translate-y-1 hover:border-cyan-300/35 hover:bg-white/[0.06]"
-//     >
-//       <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(34,211,238,0.08),transparent_55%)] opacity-0 transition duration-300 group-hover:opacity-100" aria-hidden="true" />
-      
-//       <div className="relative z-10 flex items-start gap-4">
-//         <div className="mt-1 inline-flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-300/35 bg-cyan-500/10 text-cyan-300">
-//           <Icon size={20} />
-//         </div>
-//         <div className="min-w-0">
-//           <h3 className="text-[1.05rem] font-bold text-white sm:text-[1.35rem]">{title}</h3>
-//           <p className="mt-2 text-sm leading-7 text-slate-300 sm:text-base">{text}</p>
-//         </div>
-//       </div>
-//     </motion.article>
-//   );
-// };
-
 const IndustryCard = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState(null);

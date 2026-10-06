@@ -1,16 +1,4 @@
 
-import {
-  Activity,
-  Cpu,
-  FileCheck2,
-  MonitorCog,
-  Network,
-  PackageCheck,
-  ScanEye,
-  ShieldCheck,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -77,34 +65,6 @@ const specializations = [
 const Specialization = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(1);
-
-  /* =======================================================
-     NEXT SLIDE
-  ======================================================= */
-
-  const nextSlide = () => {
-    setDirection(1);
-
-    setActiveIndex((current) =>
-      current === specializations.length - 1
-        ? 0
-        : current + 1
-    );
-  };
-
-  /* =======================================================
-     PREVIOUS SLIDE
-  ======================================================= */
-
-  const previousSlide = () => {
-    setDirection(-1);
-
-    setActiveIndex((current) =>
-      current === 0
-        ? specializations.length - 1
-        : current - 1
-    );
-  };
 
   /* =======================================================
      AUTO SLIDE

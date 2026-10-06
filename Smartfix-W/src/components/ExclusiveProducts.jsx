@@ -5,14 +5,6 @@ import PLC2 from "../assets/plc_2.png";
 import PLC3 from "../assets/plc_3.png";
 import PLC4 from "../assets/plc_4.png";
 
-import rockwellLogo from "../assets/rockwell-logo1.png";
-import siemensLogo from "../assets/Siemens-Logo.png";
-import mitsubishiLogo from "../assets/mitsubi-logo.png";
-import omronLogo from "../assets/Omron-Logo.png";
-import abbLogo from "../assets/ABB_logo.png";
-import schneiderLogo from "../assets/schneider-logo.png";
-import festoLogo from "../assets/festo-logo.png";
-import prosoftLogo from "../assets/Prosoft-Logo.png";
 
 
 const products = [

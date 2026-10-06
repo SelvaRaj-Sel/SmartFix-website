@@ -1,12 +1,7 @@
-import { useContext } from "react";
-import { ArrowUpRight, CheckCircle2, Clock3, Mail, MapPin, Phone } from "lucide-react";
-import { ContactContext } from "../context/ContactContext.jsx";
+import { Clock3, Mail, MapPin, Phone } from "lucide-react";
 import { motion } from "framer-motion";
-import { use3DTilt } from "../hooks/use3DTilt.js";
 
 const Contact = () => {
-  const { form, submitted, error, updateField, submit } = useContext(ContactContext);
-  const tilt = use3DTilt({ maxRotation: 3, scale: 1.01 });
 
   return (
     <section id="contact" className="relative overflow-hidden bg-[#020d1a] py-8 text-white sm:py-10">
